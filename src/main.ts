@@ -17,11 +17,6 @@ async function bootstrap() {
   // Environments
   const port = configService.get<number>('PORT');
   const environment = configService.get<string>('NODE_ENV');
-  const jwt = configService.get<string>('JWT_SECRET');
-
-  logger.log(port);
-  logger.log(environment);
-  logger.log(jwt);
 
   // Security setup
   app.use(helmet());

@@ -16,7 +16,7 @@ import configSchema from './config/config.schema';
     AuthModule,
     UsersModule,
     ConfigModule.forRoot({
-      envFilePath: `environment/.env.${process.env.NODE_ENV}`,
+      envFilePath: `environment/.env.${process.env.NODE_ENV || 'development'}`,
       load: [serverConfig, databaseConfig],
       validationSchema: configSchema,
       isGlobal: true,
