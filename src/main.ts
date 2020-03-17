@@ -7,10 +7,16 @@ import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Bootstrap');
+  const configService = app.get(ConfigService);
+
+  // Environments
+  const port = configService.get<number>('PORT');
+  const environment = configService.get<string>('NODE_ENV');
 
   // Security setup
   app.use(helmet());
@@ -26,7 +32,7 @@ async function bootstrap() {
   // compression
   app.use(compression());
 
-  await app.listen(3000);
-  logger.log(`Application is running on: ${await app.getUrl()}`);
+  await app.listen(port);
+  logger.log(`Application is running in ${environment.toUpperCase()} on: ${await app.getUrl()}`);
 }
 bootstrap();
