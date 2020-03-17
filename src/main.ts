@@ -17,11 +17,16 @@ async function bootstrap() {
   // Environments
   const port = configService.get<number>('PORT');
   const environment = configService.get<string>('NODE_ENV');
+  const jwt = configService.get<string>('JWT_SECRET');
+
+  logger.log(port);
+  logger.log(environment);
+  logger.log(jwt);
 
   // Security setup
   app.use(helmet());
   app.enableCors();
-  app.use(csurf());
+  // app.use(csurf());
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
