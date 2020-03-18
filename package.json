@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Sistema de llamadas Callback compatible con Fusionpbx",
   "author": "Ruslan Gonzalez <ruslanguns@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruslanguns/callback-server"
+  },
   "private": true,
   "license": "MIT",
   "scripts": {
