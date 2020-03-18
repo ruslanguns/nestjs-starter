@@ -1,2 +1,20 @@
+@server_api=http://localhost:3000
+@access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTU4NDU0NTgxMSwiZXhwIjoxNTg0NjMyMjExfQ.d8HmJZtbkmcJtRY4huQZOpSGOvPA2LFhRSFvCWcVpD0
+
 #####
-GET http://localhost:3000/ HTTP/1.1
+GET {{server_api}} HTTP/1.1
+content-type: application/json
+
+##### Login
+POST  {{server_api}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "john",
+    "password": "changeme"
+}
+
+#####
+GET {{server_api}}/profile HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{access_token}}

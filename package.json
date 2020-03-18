@@ -29,7 +29,6 @@
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
     "compression": "^1.7.4",
-    "csurf": "^1.11.0",
     "express-rate-limit": "^5.1.1",
     "helmet": "^3.21.3",
     "passport": "^0.4.1",

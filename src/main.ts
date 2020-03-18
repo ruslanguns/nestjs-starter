@@ -5,7 +5,6 @@ import * as compression from 'compression';
 
 // Security
 import * as helmet from 'helmet';
-import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
 import { ConfigService } from '@nestjs/config';
 
@@ -21,7 +20,6 @@ async function bootstrap() {
   // Security setup
   app.use(helmet());
   app.enableCors();
-  // app.use(csurf());
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
