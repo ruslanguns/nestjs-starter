@@ -1,0 +1,28 @@
+version: '3'
+services:
+  database:
+    image: 'postgres' # use latest official postgres version
+    env_file:
+      - environment/.env.${NODE_ENV:-development} # configure postgres
+    volumes:
+      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+    ports:
+      - '${PGADMIN_PORT:-5432}:5432'
+    networks:
+      - postgres
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - environment/.env.${NODE_ENV:-development}
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - '${PGADMIN_PORT:-5050}:80'
+    networks:
+      - postgres
+networks:
+  postgres:
+    driver: bridge
+volumes:
+  database-data:
+  pgadmin:
