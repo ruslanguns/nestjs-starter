@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-
 import { ConfigModule } from '@nestjs/config';
+
 import serverConfig from './config/server.config';
 import databaseConfig from './config/database.config';
-
-
-import { AppController } from './app.controller';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
 import configSchema from './config/config.schema';
+
+
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { AppController } from './app.controller';
+import { DatabaseModule } from './modules/database/database.module';
+
 
 @Module({
     imports: [
@@ -19,7 +21,8 @@ import configSchema from './config/config.schema';
             load: [serverConfig, databaseConfig],
             validationSchema: configSchema,
             isGlobal: true,
-        })
+        }),
+        DatabaseModule,
     ],
     controllers: [AppController],
     providers: [],

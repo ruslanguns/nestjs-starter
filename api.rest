@@ -1,5 +1,5 @@
 @server_api=http://localhost:3000
-@access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTU4NDU0NTgxMSwiZXhwIjoxNTg0NjMyMjExfQ.d8HmJZtbkmcJtRY4huQZOpSGOvPA2LFhRSFvCWcVpD0
+@access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1ODQ3Mzg3MzYsImV4cCI6MTU4NDgyNTEzNn0.6aX-LwBnjnCdkGOk8nGEshIeAd0Ll7bRyaMIigBLyQc
 
 #####
 GET {{server_api}} HTTP/1.1

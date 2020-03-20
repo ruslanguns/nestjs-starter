@@ -5,5 +5,6 @@ export default registerAs('database', () => ({
     port: process.env.DATABASE_PORT || 5432,
     user: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
-    name: process.env.POSTGRES_DB
+    name: process.env.POSTGRES_DB,
+    sync: process.env.DATABASE_SYNC,
 }));

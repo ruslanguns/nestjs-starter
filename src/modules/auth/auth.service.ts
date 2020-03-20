@@ -1,10 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../modules/users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { DataOutput } from 'src/common/interfaces/api-response.interface';
+
+import { DataOutput } from '../../common/interfaces/api-response.interface';
+import { UsersService } from '../users/users.service';
+import { IUser } from '../users/users.interface';
 
 export interface ApiLoginSuccess {
-    access_token: string;
+    user: IUser,
+    accessToken: string;
+}
+
+export interface JwtPayload {
+    id: string;
 }
 
 @Injectable()
@@ -23,11 +30,12 @@ export class AuthService {
         return null;
     }
 
-    async login(user: any): Promise<DataOutput<ApiLoginSuccess>> {
-        const payload = { email: user.email, sub: user.id };
+    async login(user: IUser): Promise<DataOutput<ApiLoginSuccess>> {
+        const payload: JwtPayload = { id: user.id };
         return {
             output: {
-                access_token: this.jwtService.sign(payload),
+                user,
+                accessToken: this.jwtService.sign(payload),
             }
         };
     }
