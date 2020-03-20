@@ -1,36 +1,43 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import * as compression from 'compression';
 
 // Security
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { ConfigService } from '@nestjs/config';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const logger = new Logger('Bootstrap');
-  const configService = app.get(ConfigService);
+    const app = await NestFactory.create(AppModule);
+    const logger = new Logger('Bootstrap');
+    const configService = app.get(ConfigService);
 
-  // Environments
-  const port = configService.get<number>('PORT');
-  const environment = configService.get<string>('NODE_ENV');
+    // Environments
+    const port = configService.get<number>('PORT');
+    const environment = configService.get<string>('NODE_ENV');
 
-  // Security setup
-  app.use(helmet());
-  app.enableCors();
-  app.use(
-    rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100, // limit each IP to 100 requests per windowMs
-    }),
-  );
+    // Interceptors and validators
+    app.useGlobalInterceptors(new TransformInterceptor());
+    app.useGlobalPipes(new ValidationPipe({
+        forbidUnknownValues: true,
+    }));
 
-  // compression
-  app.use(compression());
+    // Security setup
+    app.use(helmet());
+    app.enableCors();
+    app.use(
+        rateLimit({
+            windowMs: 15 * 60 * 1000, // 15 minutes
+            max: 100, // limit each IP to 100 requests per windowMs
+        }),
+    );
 
-  await app.listen(port);
-  logger.log(`Application is running in ${environment.toUpperCase()} on: ${await app.getUrl()}`);
+    // compression
+    app.use(compression());
+
+    await app.listen(port);
+    logger.log(`Application is running in ${environment.toUpperCase()} on: ${await app.getUrl()}`);
 }
 bootstrap();
