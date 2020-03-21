@@ -2,18 +2,18 @@
 
 ## Description
 
-This aplication server is made with [NestJS](https://nestjs.com) and provides a simple API server for a click to call application web app which uses an API from [FusionPBX](https://fusionpbx.com)
+This aplication server is made with [NestJS](https://nestjs.com) and provides a simple API server for a click to call application web app which uses an API from [FusionPBX](https://fusionpbx.com).
 
 ## Requirements
 
 - API Enabled server at Fusionpbx
 - Node installed in a machine
-- Postgres Server Database (I will provide a Docker ready to use setup for deployment in the early future)
+- MongoDB Server Database (I will provide a Docker ready to use setup for deployment in the early future)
 
 ## Installation
 
 ```bash
-$ yarntall
+$ yarn install
 ```
 
 ## Environment
