@@ -1,4 +1,5 @@
 import { registerAs } from '@nestjs/config';
+import { MongooseModuleOptions } from '@nestjs/mongoose';
 
 export default registerAs('database', () => ({
     host: process.env.DATABASE_HOST,
@@ -6,11 +7,21 @@ export default registerAs('database', () => ({
     user: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     name: process.env.POSTGRES_DB,
-    uri: mongoUri(),
+    config: mongooseModuleOptions(),
 }));
 
+function mongooseModuleOptions(): MongooseModuleOptions {
+    return {
+        uri: mongodbUri(),
+        authSource: 'admin',
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+    };
+}
 
-function mongoUri(): string {
+function mongodbUri(): string {
     const database_username = process.env.DATABASE_USER;
     const database_password = process.env.DATABASE_PASSWORD;
     const database_host = process.env.DATABASE_HOST;
