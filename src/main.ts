@@ -8,6 +8,7 @@ import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { ConfigService } from '@nestjs/config';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
+import { CONFIG_SERVER_PORT, NODE_ENV } from './config/config.constants';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -15,8 +16,8 @@ async function bootstrap() {
     const configService = app.get(ConfigService);
 
     // Environments
-    const port = configService.get<number>('PORT');
-    const environment = configService.get<string>('NODE_ENV');
+    const port = configService.get<number>(CONFIG_SERVER_PORT);
+    const environment = configService.get<string>(NODE_ENV);
 
     // Interceptors and validators
     app.useGlobalInterceptors(new TransformInterceptor());
