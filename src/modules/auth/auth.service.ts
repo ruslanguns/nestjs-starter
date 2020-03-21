@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 
 import { DataOutput } from '../../common/interfaces/api-response.interface';
 import { UsersService } from '../users/users.service';
-import { IUser } from '../users/users.interface';
+import { IUser } from '../../common/interfaces/users.interface';
 
 export interface ApiLoginSuccess {
     user: IUser,
