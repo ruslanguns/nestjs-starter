@@ -8,7 +8,6 @@ const Schema = Joi.object({
     JWT_SECRET: Joi.string(),
     JWT_EXPIRATION: Joi.string(),
     DATABASE_PORT: Joi.number(),
-    DATABASE_SYNC: Joi.bool()
 });
 
 export default Schema;
