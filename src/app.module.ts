@@ -5,24 +5,26 @@ import serverConfig from './config/server.config';
 import databaseConfig from './config/database.config';
 import configSchema from './config/config.schema';
 
+import {
+    AuthModule,
+    UsersModule,
+    DatabaseModule,
+    OtpModule
+} from './modules';
 
-import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
 import { AppController } from './app.controller';
-import { DatabaseModule } from './modules/database/database.module';
-import { OtpModule } from './modules/otp/otp.module';
 
 
 @Module({
     imports: [
-        AuthModule,
-        UsersModule,
         ConfigModule.forRoot({
             envFilePath: `environment/.env.${process.env.NODE_ENV || 'development'}`,
             load: [serverConfig, databaseConfig],
             validationSchema: configSchema,
             isGlobal: true,
         }),
+        AuthModule,
+        UsersModule,
         DatabaseModule,
         OtpModule,
     ],
