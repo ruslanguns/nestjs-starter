@@ -10,6 +10,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { AppController } from './app.controller';
 import { DatabaseModule } from './modules/database/database.module';
+import { OtpModule } from './modules/otp/otp.module';
 
 
 @Module({
@@ -23,6 +24,7 @@ import { DatabaseModule } from './modules/database/database.module';
             isGlobal: true,
         }),
         DatabaseModule,
+        OtpModule,
     ],
     controllers: [AppController],
     providers: [],
