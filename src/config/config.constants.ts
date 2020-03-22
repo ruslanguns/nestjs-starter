@@ -12,3 +12,5 @@ export const CONFIG_DB_PASSWORD = 'database.password';
 export const CONFIG_DB_NAME = 'database.name';
 export const CONFIG_DB_CONFIG = 'database.config';
 export const CONFIG_DB_CONFIG_MONGO_URI = 'database.config.uri';
+// MAILER NAMESPACE
+export const CONFIG_MAILER_CONFIG = 'mailer.config';

@@ -8,7 +8,7 @@ import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { ConfigService } from '@nestjs/config';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
-import { CONFIG_SERVER_PORT, NODE_ENV } from './config/config.constants';
+import { CONFIG_SERVER_PORT, NODE_ENV, CONFIG_MAILER_CONFIG } from './config/config.constants';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
