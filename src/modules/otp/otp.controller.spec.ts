@@ -12,11 +12,7 @@ describe('Otp Controller', () => {
         controller = module.get<OtpController>(OtpController);
     });
 
-    it('otp controller bypass', () => {
-        expect('bypass').toBe('bypass');
-    });
-
-    xit('should be defined', () => {
+    it('should be defined', () => {
         expect(controller).toBeDefined();
     });
 });
