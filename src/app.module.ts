@@ -17,7 +17,6 @@ import { AppController } from './app.controller';
         AuthModule,
         UsersModule,
         OtpModule,
-        CoreModule,
     ],
 })
 export class AppModule { }
