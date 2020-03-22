@@ -547,6 +547,14 @@
     multer "1.4.2"
     tslib "1.11.1"
 
+"@nestjs/schedule@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/schedule/-/schedule-0.3.0.tgz#876ef9ec7677be5012eeefaf2749dad74e8694a8"
+  integrity sha512-TBW/k1y3WRy3Dx5rYOkFrCLS+3VAvsYGHAnwWS2s8IMity26Vo52aeW3HTSaZHUTj5LTxRf387q7nxrvR3r88A==
+  dependencies:
+    cron "1.8.2"
+    uuid "7.0.2"
+
 "@nestjs/schematics@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@nestjs/schematics/-/schematics-7.0.0.tgz#7b48bdcd50dad430957b2c112d555a5147c2e60e"
@@ -2110,6 +2118,13 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+cron@1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/cron/-/cron-1.8.2.tgz#4ac5e3c55ba8c163d84f3407bde94632da8370ce"
+  integrity sha512-Gk2c4y6xKEO8FSAUTklqtfSr7oTq0CiPQeLBG5Fl0qoXpZyMcj1SG59YL+hqq04bu6/IuEA7lMkYDAplQNKkyg==
+  dependencies:
+    moment-timezone "^0.5.x"
 
 cross-env@^7.0.2:
   version "7.0.2"
@@ -4847,6 +4862,18 @@ mkdirp@0.x, mkdirp@^0.5.1:
   integrity sha512-P+2gwrFqx8lhew375MQHHeTlY8AuOJSrGf0R5ddkEndUkmwpgUob/vQuBD1V22/Cw1/lJr4x+EjllSezBThzBg==
   dependencies:
     minimist "^1.2.5"
+
+moment-timezone@^0.5.x:
+  version "0.5.28"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.28.tgz#f093d789d091ed7b055d82aa81a82467f72e4338"
+  integrity sha512-TDJkZvAyKIVWg5EtVqRzU97w0Rb0YVbfpqyjgu6GwXCAohVRqwZjf4fOzDE6p1Ch98Sro/8hQQi65WDXW5STPw==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0":
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 mongodb@3.5.5:
   version "3.5.5"
