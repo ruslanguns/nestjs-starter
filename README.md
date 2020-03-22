@@ -1,8 +1,27 @@
 # NestJs Starter
 
+## in progress
+
 ## Description
 
-This aplication server is made with [NestJS](https://nestjs.com) and provides a scaffold with a kit of tools and utils to reduce the boilerplace when you are starting a new api server.
+This aplication server is made with [NestJS](https://nestjs.com) and provides a scaffold with a kit of tools and utils to reduce the boilerplate when you are starting a new backend project.
+
+## Features
+
+- [x] Clean architecture
+- [x] Interceptors for logging and formating
+- [x] Filters for error logging handling
+- [x] Tested collection of utils
+- [x] Package @nestjs/config integration with some extra tricks
+- [x] Package @nestjs-modules/mailer integration
+- [x] Package @nestjs/scheduler integration
+- [x] Package @nestjs/mongoose integration
+- [ ] Testings
+- [ ] Package @nestjs/bull integration
+- [ ] Authentication with Passport Local Strategy
+- [ ] Authentication with Passport JWT Strategy
+- [ ] OTP -One Time Password-
+- [ ] IN PROGRESS!
 
 ## Requirements
 
