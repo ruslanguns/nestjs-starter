@@ -74,6 +74,11 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.4"
   },
+  "resolutions": {
+    "minimist": "^1.2.2",
+    "cryptiles": "^4.1.2",
+    "hoek": "^4.2.1"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
