@@ -1,7 +1,8 @@
-import { Controller, Get, Request, Post, UseGuards, Put, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Request, Post, UseGuards, Put, Delete, Patch, Body } from '@nestjs/common';
 import { LocalAuthGuard } from './modules/auth/guards/local-auth.guard';
 import { AuthService } from './modules/auth/auth.service';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
+import { LoginDto } from './modules/auth/dtos/login.dto';
 
 @Controller()
 export class AppController {
@@ -11,26 +12,14 @@ export class AppController {
 
     @UseGuards(LocalAuthGuard)
     @Post('auth/login')
-    async login(@Request() req) {
-        return this.authService.login(req.user);
+    async login(@Request() req) { // TODO: Send DTO with LocalStrategy!
+        return await this.authService.login(req.user);
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get('profile')
+    @Get('auth/profile')
     async profile(@Request() req) {
         return { output: req.user };
     }
-
-    @Post('user')
-    register() { }
-
-    @Put('user/:id')
-    update() { }
-
-    @Delete('user/:id')
-    delete() { }
-
-    @Patch('user/:id/:bool')
-    toggleUserStatus() { }
 
 }

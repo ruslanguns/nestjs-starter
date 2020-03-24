@@ -1,21 +1,62 @@
-import { ExceptionFilter, ArgumentsHost, HttpException, Catch } from '@nestjs/common';
-import { Response, Request } from 'express';
+import {
+    ArgumentsHost,
+    Catch,
+    ExceptionFilter,
+    HttpException,
+    HttpStatus,
+} from '@nestjs/common';
+import { Response } from 'express';
+import { ApiException } from './api-exception.model';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-    catch(exception: HttpException, host: ArgumentsHost) {
+    catch(error: any, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
-        const response = ctx.getResponse<Response>();
-        const request = ctx.getRequest<Request>();
-        const status = exception.getStatus();
+        const res = ctx.getResponse() as Response;
+        const req = ctx.getRequest();
+        const statusCode = error.getStatus();
+        const stacktrace = error.stack;
+        const errorName = error.response.name || error.response.error || error.name;
+        const errors = error.response.errors || null;
+        const path = req ? req.url : null;
 
-        response
-            .status(status)
-            .json({
-                statusCode: status,
-                message: exception.message,
-                timestamp: new Date().toISOString(),
-                path: request.url,
-            });
+        if (statusCode === HttpStatus.UNAUTHORIZED) {
+            if (typeof error.response !== 'string') {
+                error.response.message =
+                    error.response.message ||
+                    'You do not have permission to access this resource';
+            }
+        }
+
+        const exception = new ApiException(
+            error.response.message,
+            errorName,
+            stacktrace,
+            errors,
+            path,
+            statusCode,
+        );
+        res.status(statusCode).json(exception);
     }
 }
+// import { ExceptionFilter, ArgumentsHost, HttpException, Catch } from '@nestjs/common';
+// import { Response, Request } from 'express';
+
+// @Catch(HttpException)
+// export class HttpExceptionFilter implements ExceptionFilter {
+//     catch(exception: HttpException, host: ArgumentsHost) {
+//         const ctx = host.switchToHttp();
+//         const response = ctx.getResponse<Response>();
+//         const request = ctx.getRequest<Request>();
+//         const status = exception.getStatus();
+
+//         response
+//             .status(status)
+//             .json({
+//                 statusCode: status,
+//                 message: exception.message,
+//                 timestamp: new Date().toISOString(),
+//                 path: request.url,
+//             });
+//     }
+// }

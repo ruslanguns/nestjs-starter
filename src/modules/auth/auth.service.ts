@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { compareSync } from 'bcrypt';
 
 import { DataOutput } from '../../common/interfaces/api-response.interface';
 import { UsersService } from '../users/users.service';
-import { IUser } from '../../common/interfaces/users.interface';
+import { User } from '../users/user.model';
+import { LoginDto } from './dtos/login.dto';
 
 export interface ApiLoginSuccess {
-    user: IUser,
+    user: typeof User,
     accessToken: string;
 }
 
@@ -21,17 +23,23 @@ export class AuthService {
         private readonly jwtService: JwtService,
     ) { }
 
-    async validateUser(email: string, pass: string): Promise<any> {
-        const user = await this.usersService.findOne(email);
-        if (user && user.password === pass) {
-            const { password, ...result } = user;
-            return result;
+    async validateUser(email: string, password: string): Promise<any> {
+        const user = await this.usersService.findOneAsync({ email });
+        if (!user) {
+            throw new NotFoundException('Invalid credentials');
         }
-        return null;
+
+        const isMatch = await compareSync(password, user.password);
+        if (!isMatch) {
+            throw new BadRequestException('Invalid credentials');
+        }
+
+        return user;
+
     }
 
-    async login(user: IUser): Promise<DataOutput<ApiLoginSuccess>> {
-        const payload: JwtPayload = { id: user.id };
+    async login(user: any): Promise<DataOutput<ApiLoginSuccess>> {
+        const payload: JwtPayload = { id: '123' };
         return {
             output: {
                 user,

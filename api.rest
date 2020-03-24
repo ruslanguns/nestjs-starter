@@ -1,20 +1,38 @@
 @server_api=http://localhost:3000
 @access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1ODQ3Mzg3MzYsImV4cCI6MTU4NDgyNTEzNn0.6aX-LwBnjnCdkGOk8nGEshIeAd0Ll7bRyaMIigBLyQc
 
-#####
-GET {{server_api}} HTTP/1.1
-content-type: application/json
-
-
-
-##### Login
+#################
+##### LOGIN
 POST  {{server_api}}/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "john@email.com",
-    "password": "changeme"
+    "password": "johnemail",
+    "email": "john@email.com"
 }
+
+
+#################
+##### GET USERS
+GET  {{server_api}}/users HTTP/1.1
+
+
+#################
+##### CREATE USERS
+POST  {{server_api}}/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "maria",
+    "email": "maria@email.com",
+    "password": "mariapass"
+}
+
+
+#################
+##### DELETE
+DELETE   {{server_api}}/users/5e798841e537411e3481d79d HTTP/1.1
+
 
 
 
