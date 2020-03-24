@@ -81,7 +81,7 @@
   "resolutions": {
     "minimist": "^1.2.2",
     "cryptiles": "^4.1.2",
-    "hoek": "^4.2.1"
+    "hoek": "^6.0.0"
   },
   "jest": {
     "moduleFileExtensions": [
