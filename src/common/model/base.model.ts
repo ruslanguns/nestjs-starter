@@ -6,8 +6,8 @@ export class BaseModel {
     id: number;
 
     @CreateDateColumn()
-    createdAt: string;
+    createdAt: Date;
 
     @UpdateDateColumn({ type: "timestamp" })
-    updatedAt: number;
+    updatedAt: Date;
 }

@@ -15,18 +15,18 @@ This aplication server is made with [NestJS](https://nestjs.com) and provides a 
 - [x] Package @nestjs/config integration with some extra tricks
 - [x] Package @nestjs-modules/mailer integration
 - [x] Package @nestjs/scheduler integration
-- [x] Package @nestjs/mongoose integration
+- [x] Package @nestjs/typeorm integration
 - [ ] Testings
 - [ ] Package @nestjs/bull integration
-- [ ] Authentication with Passport Local Strategy
-- [ ] Authentication with Passport JWT Strategy
+- [x] Authentication with Passport Local Strategy
+- [x] Authentication with Passport JWT Strategy
 - [ ] OTP -One Time Password-
 - [ ] IN PROGRESS!
 
 ## Requirements
 
 - Node installed in a machine
-- MongoDB Server Database (I will provide a Docker ready to use setup for deployment in the early future) **OPTIONAL**
+- Postgres Server Database (I will provide a Docker ready to use setup for deployment in the early future) follow [these instructions](#instruction-to-use-docker-for-database) to setup DB with Docker.**OPTIONAL**
 
 ## Installation
 
@@ -67,6 +67,44 @@ $ yarn test:e2e
 # test coverage
 $ yarn test:cov
 ```
+
+## Instruction to use Docker for Database
+
+
+Build image in background and run with logs:
+
+```bash
+docker-compose -f database.yml up
+```
+
+Build image in background and run in the first time:
+
+```bash
+docker-compose -f database.yml up -d
+```
+
+To stop container:
+
+```bash
+docker-compose -f database.yml stop
+```
+
+To start container:
+
+```bash
+docker-compose -f database.yml stop
+```
+
+To remove and prune:
+
+```bash
+docker-compose -f database.yml stop
+docker-compose -f database.yml rm # followed by "y"
+docker-compose -f database.yml down
+docker-compose -f database.yml down --volumes
+```
+
+
 
 ## Contact information
 
