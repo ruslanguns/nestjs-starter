@@ -4,11 +4,9 @@ import { compareSync } from 'bcrypt';
 
 import { DataOutput } from '../../common/interfaces/api-response.interface';
 import { UsersService } from '../users/users.service';
-import { User } from '../users/user.model';
-import { LoginDto } from './dtos/login.dto';
 
 export interface ApiLoginSuccess {
-    user: typeof User,
+    user: ''; // TODO: poner el tipado correcto del modelo
     accessToken: string;
 }
 
@@ -18,24 +16,18 @@ export interface JwtPayload {
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private readonly usersService: UsersService,
-        private readonly jwtService: JwtService,
-    ) { }
+    constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService) {}
 
     async validateUser(email: string, password: string): Promise<any> {
-        const user = await this.usersService.findOneAsync({ email });
-        if (!user) {
-            throw new NotFoundException('Invalid credentials');
-        }
-
-        const isMatch = await compareSync(password, user.password);
-        if (!isMatch) {
-            throw new BadRequestException('Invalid credentials');
-        }
-
-        return user;
-
+        // const user = await this.usersService.findOneAsync({ email });
+        // if (!user) {
+        //     throw new NotFoundException('Invalid credentials');
+        // }
+        // const isMatch = await compareSync(password, user.password);
+        // if (!isMatch) {
+        //     throw new BadRequestException('Invalid credentials');
+        // }
+        // return user;
     }
 
     async login(user: any): Promise<DataOutput<ApiLoginSuccess>> {
@@ -44,7 +36,7 @@ export class AuthService {
             output: {
                 user,
                 accessToken: this.jwtService.sign(payload),
-            }
+            },
         };
     }
 }

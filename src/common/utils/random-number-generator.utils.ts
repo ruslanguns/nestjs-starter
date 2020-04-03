@@ -1,4 +1,3 @@
-
 /**
  * Method to generate a random number from min to max
  * @param min Number from

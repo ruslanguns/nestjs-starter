@@ -1,10 +1,4 @@
-import {
-    ArgumentsHost,
-    Catch,
-    ExceptionFilter,
-    HttpException,
-    HttpStatus,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiException } from './api-exception.model';
 
@@ -22,20 +16,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
         if (statusCode === HttpStatus.UNAUTHORIZED) {
             if (typeof error.response !== 'string') {
-                error.response.message =
-                    error.response.message ||
-                    'You do not have permission to access this resource';
+                error.response.message = error.response.message || 'You do not have permission to access this resource';
             }
         }
 
-        const exception = new ApiException(
-            error.response.message,
-            errorName,
-            stacktrace,
-            errors,
-            path,
-            statusCode,
-        );
+        const exception = new ApiException(error.response.message, errorName, stacktrace, errors, path, statusCode);
         res.status(statusCode).json(exception);
     }
 }

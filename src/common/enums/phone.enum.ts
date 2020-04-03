@@ -1,5 +1,4 @@
-
 export enum PhoneEnum {
     MOBILE = 'mobile',
-    FIXED = 'fixed'
+    FIXED = 'fixed',
 }

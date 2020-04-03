@@ -13,15 +13,15 @@ import { CONFIG_SERVER_PASSPORT, CONFIG_SERVER_JWT } from '../../config/config.c
     imports: [
         UsersModule,
         PassportModule.registerAsync({
-            useFactory: async (configService: ConfigService) => (configService.get<IAuthModuleOptions>(CONFIG_SERVER_PASSPORT)),
-            inject: [ConfigService]
+            useFactory: async (configService: ConfigService) => configService.get<IAuthModuleOptions>(CONFIG_SERVER_PASSPORT),
+            inject: [ConfigService],
         }),
         JwtModule.registerAsync({
-            useFactory: async (configService: ConfigService) => (configService.get(CONFIG_SERVER_JWT)),
-            inject: [ConfigService]
-        })
+            useFactory: async (configService: ConfigService) => configService.get(CONFIG_SERVER_JWT),
+            inject: [ConfigService],
+        }),
     ],
     providers: [AuthService, LocalStrategy, JwtStrategy],
     exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

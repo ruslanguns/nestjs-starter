@@ -6,5 +6,5 @@ export interface Response<T> {
 
 export interface DataOutput<T> {
     message?: string;
-    output: T
+    output: T;
 }

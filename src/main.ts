@@ -10,7 +10,6 @@ import { AppModule } from './app.module';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { CONFIG_SERVER_PORT, NODE_ENV } from './config/config.constants';
 
-
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const logger = new Logger('Bootstrap');
@@ -22,9 +21,11 @@ async function bootstrap() {
 
     // Interceptors and validators
     app.useGlobalInterceptors(new TransformInterceptor());
-    app.useGlobalPipes(new ValidationPipe({
-        forbidUnknownValues: true,
-    }));
+    app.useGlobalPipes(
+        new ValidationPipe({
+            forbidUnknownValues: true,
+        }),
+    );
 
     // Security setup
     app.use(helmet());

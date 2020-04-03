@@ -17,6 +17,6 @@ function jwtModuleOptions(): JwtModuleOptions {
 
 function passportModuleOptions(): IAuthModuleOptions {
     return {
-        defaultStrategy: 'jwt'
+        defaultStrategy: 'jwt',
     };
 }

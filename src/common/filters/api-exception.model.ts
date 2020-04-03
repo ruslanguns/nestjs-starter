@@ -10,14 +10,7 @@ export class ApiException {
     path?: string;
     stack?: string;
 
-    constructor(
-        message: string,
-        error: string,
-        stack: string,
-        errors: any,
-        path: string,
-        statusCode: number,
-    ) {
+    constructor(message: string, error: string, stack: string, errors: any, path: string, statusCode: number) {
         this.message = message;
         this.error = error;
         this.stack = stack;

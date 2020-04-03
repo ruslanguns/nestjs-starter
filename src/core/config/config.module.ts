@@ -4,7 +4,7 @@ import { ConfigModule as ConfigModulePackage } from '@nestjs/config';
 import serverConfig from 'src/config/server.config';
 import databaseConfig from 'src/config/database.config';
 import configSchema from 'src/config/config.schema';
-import mailerConfig from 'src/config/mailer.config'
+import mailerConfig from 'src/config/mailer.config';
 
 @Module({
     imports: [
@@ -14,6 +14,6 @@ import mailerConfig from 'src/config/mailer.config'
             validationSchema: configSchema,
             isGlobal: true,
         }),
-    ]
+    ],
 })
-export class ConfigModule { }
+export class ConfigModule {}

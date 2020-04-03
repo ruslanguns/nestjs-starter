@@ -6,4 +6,4 @@ import { TaskService } from './task.service';
     imports: [ScheduleModule.forRoot()],
     providers: [TaskService],
 })
-export class SchedulerModule { }
+export class SchedulerModule {}

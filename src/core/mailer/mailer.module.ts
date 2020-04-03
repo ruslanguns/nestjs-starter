@@ -7,9 +7,9 @@ import { CONFIG_MAILER_CONFIG } from '../../config/config.constants';
 @Module({
     imports: [
         MailerModulePackage.forRootAsync({
-            useFactory: (configService: ConfigService) => (configService.get<MailerOptions>(CONFIG_MAILER_CONFIG)),
-            inject: [ConfigService]
-        })
-    ]
+            useFactory: (configService: ConfigService) => configService.get<MailerOptions>(CONFIG_MAILER_CONFIG),
+            inject: [ConfigService],
+        }),
+    ],
 })
-export class MailerModule { }
+export class MailerModule {}
