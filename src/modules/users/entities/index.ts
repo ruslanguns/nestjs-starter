@@ -1,2 +1,2 @@
 export * from './user.entity';
-export * from './usermeta.entity';
+export * from './user-metadata.entity';

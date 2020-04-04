@@ -4,7 +4,7 @@ import { BaseEntityMetadata, EntityBase, EmptyEntity  } from '../../../common/ab
 import { User } from './user.entity';
 
 @Entity('user_metadata')
-export class UserMetadata extends BaseEntityMetadata(EntityBase(EmptyEntity)) {
+export class UserMetadata extends EntityBase(BaseEntityMetadata(EmptyEntity)) {
 
     @OneToOne(type => User, user => user.id)
     userId: number;
