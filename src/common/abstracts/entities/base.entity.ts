@@ -5,7 +5,7 @@ export type Constructor<T = {}> = new (...args: any[]) => T;
 /**
  * This is an empty class entity
  */
-export class EmptyEntity { }
+export class EmptyEntity {}
 
 /**
  * This abstract class includes ID as a Primary Key
@@ -29,7 +29,7 @@ export function EntityBaseWithDate<TBase extends Constructor>(Base: TBase) {
         @CreateDateColumn({ nullable: true })
         createdAt: Date;
 
-        @UpdateDateColumn({ type: "timestamp" })
+        @UpdateDateColumn({ type: 'timestamp' })
         updatedAt: Date;
     }
 

@@ -4,9 +4,8 @@ import { EntityBaseWithDate, EntityBase, EmptyEntity } from '../../../common/abs
 
 @Entity('user')
 export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
-
     @Index({ unique: true })
-    @Column({ type: 'varchar', length: 254, nullable: false})
+    @Column({ type: 'varchar', length: 254, nullable: false })
     email: string;
 
     @Index({ unique: true })
@@ -20,5 +19,5 @@ export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
     enabled: boolean;
 
     @DeleteDateColumn({ name: 'deleted_at' })
-    public deletedAt: Date
+    public deletedAt: Date;
 }
