@@ -1,9 +1,9 @@
-import { OneToOne, DeleteDateColumn } from 'typeorm';
+import { OneToOne, DeleteDateColumn, Entity } from 'typeorm';
 
 import { BaseEntityMetadata, EntityBase, EmptyEntity  } from '../../../common/abstracts';
 import { User } from './user.entity';
 
-
+@Entity('user_metadata')
 export class UserMetadata extends BaseEntityMetadata(EntityBase(EmptyEntity)) {
 
     @OneToOne(type => User, user => user.id)

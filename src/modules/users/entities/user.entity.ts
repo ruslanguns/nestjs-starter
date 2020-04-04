@@ -2,7 +2,7 @@ import { Column, Entity, DeleteDateColumn } from 'typeorm';
 
 import { EntityBaseWithDate, EntityBase, EmptyEntity } from '../../../common/abstracts';
 
-@Entity()
+@Entity('user')
 export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
 
     @Column({ type: 'varchar', length: 254, nullable: false})
