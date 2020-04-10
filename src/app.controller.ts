@@ -6,12 +6,11 @@ import { LoginDto } from './modules/auth/dtos/login.dto';
 
 @Controller()
 export class AppController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
     @UseGuards(LocalAuthGuard)
     @Post('auth/login')
     async login(@Request() req) {
-        console.log(req);
         return await this.authService.login(req.user);
     }
 

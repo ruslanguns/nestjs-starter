@@ -19,12 +19,17 @@ export class UsersService {
         return await this.userRepository.save(user);
     }
 
+    async createBulk(dto: CreateUserDto[]): Promise<User[]> {
+        const users = this.userRepository.create(dto);
+        return await this.userRepository.save(users);
+    }
+
     async getAll(): Promise<User[]> {
         return await this.userRepository.find();
     }
 
-    async getById(id: number): Promise<User> {
-        return await this.userRepository.findOne(id);
+    async getById(id: number): Promise<User | null> {
+        return await this.userRepository.findOne(id) || null;
     }
 
     async getByIds(ids: number[]): Promise<User[]> {

@@ -12,18 +12,12 @@ import { User } from "src/modules/users/entities";
 export class IsUsernameAlreadyExistConstraint implements ValidatorConstraintInterface {
 
   async validate(username: any, args: ValidationArguments) {
-
-    const [relatedPropertyName] = args.constraints;
-    const relatedValue = (args.object as any)[relatedPropertyName];
-    if (relatedValue === undefined || relatedValue === null)
-      return true;
-
     const query = getRepository<User>(User)
       .createQueryBuilder()
       .where('username = :username', { username })
-    const user = await query.getOne(); // return true if user exists
-    console.log(user);
-    return !user;
+    const result = await query.getOne(); // return true if user exists
+    if (result) return false;
+    return true;
   }
 
 }
