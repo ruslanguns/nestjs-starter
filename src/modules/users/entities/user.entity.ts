@@ -1,4 +1,7 @@
-import { Column, Entity, DeleteDateColumn, Index } from 'typeorm';
+import { Column, Entity, DeleteDateColumn, Index, BeforeInsert } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { hash } from 'bcryptjs';
+import * as crypto from 'crypto';
 
 import { EntityBaseWithDate, EntityBase, EmptyEntity } from '../../../common/abstracts';
 
@@ -12,10 +15,16 @@ export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
     @Column({ type: 'varchar', length: 50, nullable: false })
     username: string;
 
-    @Column({ type: 'varchar', length: 500, nullable: false })
+    @Exclude({ toPlainOnly: true })
+    @Column({ type: 'varchar', length: 500, nullable: false, select: false })
     password: string;
 
-    @Column({ type: 'bool', default: true })
+    @BeforeInsert()
+    async hashPassword() {
+        this.password = await hash(this.password, 10);
+    }
+
+    @Column({ type: 'bool', default: true, select: false })
     enabled: boolean;
 
     @DeleteDateColumn({ name: 'deleted_at' })
