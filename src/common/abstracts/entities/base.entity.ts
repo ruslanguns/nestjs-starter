@@ -5,19 +5,19 @@ export type Constructor<T = {}> = new (...args: any[]) => T;
 /**
  * This is an empty class entity
  */
-export class EmptyEntity { }
+export class EmptyEntity {}
 
 /**
  * This abstract class includes ID as a Primary Key
  * @param Base Class which plans to extends from AbstractBase
  */
 export function EntityBase<TBase extends Constructor>(Base: TBase) {
-    abstract class AbstractBase extends Base {
-        @PrimaryGeneratedColumn()
-        id: number;
-    }
+  abstract class AbstractBase extends Base {
+    @PrimaryGeneratedColumn()
+    id: number;
+  }
 
-    return AbstractBase;
+  return AbstractBase;
 }
 
 /**
@@ -25,21 +25,21 @@ export function EntityBase<TBase extends Constructor>(Base: TBase) {
  * @param Base Class which plans to extends from AbstractBase
  */
 export function EntityBaseWithDate<TBase extends Constructor>(Base: TBase) {
-    abstract class AbstractBase extends Base {
-        @CreateDateColumn({
-            type: "timestamp",
-            nullable: true,
-            default: () => 'CURRENT_TIMESTAMP(6)'
-        })
-        createdAt: Date;
+  abstract class AbstractBase extends Base {
+    @CreateDateColumn({
+      type: 'timestamp',
+      nullable: true,
+      default: () => 'CURRENT_TIMESTAMP(6)',
+    })
+    createdAt: Date;
 
-        @UpdateDateColumn({
-            type: "timestamp",
-            default: () => "CURRENT_TIMESTAMP(6)",
-            onUpdate: "CURRENT_TIMESTAMP(6)"
-        })
-        updatedAt: Date;
-    }
+    @UpdateDateColumn({
+      type: 'timestamp',
+      default: () => 'CURRENT_TIMESTAMP(6)',
+      onUpdate: 'CURRENT_TIMESTAMP(6)',
+    })
+    updatedAt: Date;
+  }
 
-    return AbstractBase;
+  return AbstractBase;
 }

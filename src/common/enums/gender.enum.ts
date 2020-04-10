@@ -1,5 +1,5 @@
 export enum GenderEnum {
-    UNDEFINED = 'undefined',
-    WOMAN = 'woman',
-    MAN = 'man',
+  UNDEFINED = 'undefined',
+  WOMAN = 'woman',
+  MAN = 'man',
 }

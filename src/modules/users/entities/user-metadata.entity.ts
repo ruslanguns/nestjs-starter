@@ -5,14 +5,14 @@ import { User } from './user.entity';
 
 @Entity('user_metadata')
 export class UserMetadata extends EntityBase(BaseEntityMetadata(EmptyEntity)) {
-    @Index()
-    @ManyToOne(
-        type => User,
-        user => user.id,
-        { nullable: false, cascade: ['soft-remove'] },
-    )
-    userId!: User;
+  @Index()
+  @ManyToOne(
+    type => User,
+    user => user.id,
+    { nullable: false, cascade: ['soft-remove'] },
+  )
+  userId!: User;
 
-    @DeleteDateColumn({ name: 'deleted_at' })
-    public deletedAt: Date;
+  @DeleteDateColumn({ name: 'deleted_at' })
+  public deletedAt: Date;
 }

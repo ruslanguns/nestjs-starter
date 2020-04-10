@@ -10,18 +10,18 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { CONFIG_SERVER_PASSPORT, CONFIG_SERVER_JWT } from '../../config/config.constants';
 
 @Module({
-    imports: [
-        UsersModule,
-        PassportModule.registerAsync({
-            useFactory: async (configService: ConfigService) => configService.get<IAuthModuleOptions>(CONFIG_SERVER_PASSPORT),
-            inject: [ConfigService],
-        }),
-        JwtModule.registerAsync({
-            useFactory: async (configService: ConfigService) => configService.get(CONFIG_SERVER_JWT),
-            inject: [ConfigService],
-        }),
-    ],
-    providers: [AuthService, LocalStrategy, JwtStrategy],
-    exports: [AuthService],
+  imports: [
+    UsersModule,
+    PassportModule.registerAsync({
+      useFactory: async (configService: ConfigService) => configService.get<IAuthModuleOptions>(CONFIG_SERVER_PASSPORT),
+      inject: [ConfigService],
+    }),
+    JwtModule.registerAsync({
+      useFactory: async (configService: ConfigService) => configService.get(CONFIG_SERVER_JWT),
+      inject: [ConfigService],
+    }),
+  ],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}

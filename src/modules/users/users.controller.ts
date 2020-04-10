@@ -4,11 +4,9 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto';
 import { DataOutput, IUser } from 'src/common/interfaces';
 
-
 @Controller('users')
 export class UsersController {
-
-  constructor(private readonly userService: UsersService) { }
+  constructor(private readonly userService: UsersService) {}
 
   @Post()
   async createOne(@Body() dto: CreateUserDto): Promise<DataOutput<IUser>> {
@@ -16,9 +14,7 @@ export class UsersController {
   }
 
   @Post('bulk')
-  async createBulk(
-    @Body(new ParseArrayPipe({ items: CreateUserDto })) dto: CreateUserDto[]
-  ): Promise<DataOutput<IUser[]>> {
+  async createBulk(@Body(new ParseArrayPipe({ items: CreateUserDto })) dto: CreateUserDto[]): Promise<DataOutput<IUser[]>> {
     return { message: 'User created successfully', output: await this.userService.createBulk(dto) };
   }
 
@@ -29,6 +25,6 @@ export class UsersController {
 
   @Get(':id')
   async getById(@Param('id') id: number) {
-    return { output: await this.userService.getById(id) }
+    return { output: await this.userService.getById(id) };
   }
 }

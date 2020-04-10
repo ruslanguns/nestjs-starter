@@ -7,13 +7,13 @@ import configSchema from 'src/config/config.schema';
 import mailerConfig from 'src/config/mailer.config';
 
 @Module({
-    imports: [
-        ConfigModulePackage.forRoot({
-            envFilePath: `environment/.env.${process.env.NODE_ENV || 'development'}`,
-            load: [serverConfig, databaseConfig, mailerConfig],
-            validationSchema: configSchema,
-            isGlobal: true,
-        }),
-    ],
+  imports: [
+    ConfigModulePackage.forRoot({
+      envFilePath: `environment/.env.${process.env.NODE_ENV || 'development'}`,
+      load: [serverConfig, databaseConfig, mailerConfig],
+      validationSchema: configSchema,
+      isGlobal: true,
+    }),
+  ],
 })
 export class ConfigModule {}

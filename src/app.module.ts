@@ -7,7 +7,7 @@ import { AppController } from './app.controller';
 import { TaxonomyModule } from './modules/taxonomy/taxonomy.module';
 
 @Module({
-    controllers: [AppController],
-    imports: [CoreModule, AuthModule, UsersModule, TaxonomyModule],
+  controllers: [AppController],
+  imports: [CoreModule, AuthModule, UsersModule, TaxonomyModule],
 })
 export class AppModule {}

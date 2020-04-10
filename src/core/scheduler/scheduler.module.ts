@@ -3,7 +3,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TaskService } from './task.service';
 
 @Module({
-    imports: [ScheduleModule.forRoot()],
-    providers: [TaskService],
+  imports: [ScheduleModule.forRoot()],
+  providers: [TaskService],
 })
 export class SchedulerModule {}
