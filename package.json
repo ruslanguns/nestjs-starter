@@ -48,7 +48,7 @@
     "@nestjs/typeorm": "7.0.0",
     "@nestjsx/crud": "4.4.5",
     "@nestjsx/crud-request": "4.4.2",
-    "@nestjsx/crud-typeorm": "4.4.2",
+    "@nestjsx/crud-typeorm": "4.4.5",
     "@ruso/common": "0.0.1",
     "@ruso/nestjs": "0.0.1",
     "bcrypt": "4.0.1",
