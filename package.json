@@ -1,6 +1,6 @@
 {
   "name": "nestjs-starter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "NestJs Starter Kit for not to start from scratch again",
   "author": "Ruslan Gonzalez <ruslanguns@gmail.com>",
   "repository": {

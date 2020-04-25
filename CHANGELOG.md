@@ -1,3 +1,9 @@
+## [0.0.3](https://github.com/ruslanguns/nestjs-starter/compare/0.0.2...0.0.3) (2020-04-25)
+
+### Bug Fixes
+
+- **deps:** pin dependencies ([0b1ca30](https://github.com/ruslanguns/nestjs-starter/commit/0b1ca3082dc5c47c88b581f49acaf1a66ac02989))
+
 ## 0.0.2 (2020-04-25)
 
 ### Bug Fixes
