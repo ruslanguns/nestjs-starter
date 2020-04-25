@@ -1,8 +1,9 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeepPartial } from 'typeorm';
+import { CrudRequest } from '@nestjsx/crud';
+import { Repository } from 'typeorm';
 
-import { User, UserMetadata } from './entities';
+import { User } from './entities';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
@@ -10,8 +11,6 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    @InjectRepository(UserMetadata)
-    private readonly userMetadataRepository: Repository<UserMetadata>,
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -24,7 +23,8 @@ export class UsersService {
     return await this.userRepository.save(users);
   }
 
-  async getAll(): Promise<User[]> {
+  async getMany(query?: CrudRequest): Promise<User[]> {
+    console.log(query);
     return await this.userRepository.find();
   }
 

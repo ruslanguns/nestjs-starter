@@ -1,7 +1,6 @@
 import { Column, Entity, DeleteDateColumn, Index, BeforeInsert } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { hash } from 'bcryptjs';
-import * as crypto from 'crypto';
 
 import { EntityBaseWithDate, EntityBase, EmptyEntity } from '../../../common/abstracts';
 

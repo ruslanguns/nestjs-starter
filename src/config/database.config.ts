@@ -1,10 +1,5 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { join } from 'path';
-
-export default registerAs('database', () => ({
-  config: typeormModuleOptions(),
-}));
 
 function typeormModuleOptions(): TypeOrmModuleOptions {
   return {
@@ -35,3 +30,6 @@ function typeormModuleOptions(): TypeOrmModuleOptions {
     },
   };
 }
+export default registerAs('database', () => ({
+  config: typeormModuleOptions(),
+}));

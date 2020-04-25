@@ -2,12 +2,6 @@ import { registerAs } from '@nestjs/config';
 import { JwtModuleOptions } from '@nestjs/jwt';
 import { IAuthModuleOptions } from '@nestjs/passport';
 
-export default registerAs('server', () => ({
-  port: parseInt(process.env.PORT, 10) || 3000,
-  jwt: jwtModuleOptions(),
-  passport: passportModuleOptions(),
-}));
-
 function jwtModuleOptions(): JwtModuleOptions {
   return {
     secret: process.env.JWT_SECRET,
@@ -20,3 +14,8 @@ function passportModuleOptions(): IAuthModuleOptions {
     defaultStrategy: 'jwt',
   };
 }
+export default registerAs('server', () => ({
+  port: parseInt(process.env.PORT, 10) || 3000,
+  jwt: jwtModuleOptions(),
+  passport: passportModuleOptions(),
+}));

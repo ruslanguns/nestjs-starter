@@ -1,4 +1,4 @@
-import { Entity, Column, OneToOne, Index, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Entity, Column, OneToOne, Index, ManyToOne } from 'typeorm';
 
 import { EntityBase, EntityBaseWithDate, EmptyEntity } from '../../../common/abstracts/entities';
 import { TermEntity } from './term.entity';
@@ -10,7 +10,7 @@ export class TermTaxonomyEntity extends EntityBase(EntityBaseWithDate(EmptyEntit
   taxonomy!: string;
 
   @ManyToOne(
-    type => TermEntity,
+    () => TermEntity,
     term => term.id,
     { nullable: false, cascade: true, onDelete: 'CASCADE' },
   )
@@ -20,7 +20,7 @@ export class TermTaxonomyEntity extends EntityBase(EntityBaseWithDate(EmptyEntit
   description?: string;
 
   @OneToOne(
-    type => TermTaxonomyEntity,
+    () => TermTaxonomyEntity,
     term_taxonomy => term_taxonomy.id,
     { nullable: true, cascade: ['update'], onDelete: 'SET NULL' },
   )

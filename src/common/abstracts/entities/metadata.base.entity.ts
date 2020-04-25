@@ -1,4 +1,4 @@
-import { PrimaryColumn, Column, Index } from 'typeorm';
+import { Column, Index } from 'typeorm';
 import { Constructor } from './base.entity';
 
 export function BaseEntityMetadata<TBase extends Constructor>(Base: TBase) {

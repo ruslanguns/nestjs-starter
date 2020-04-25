@@ -676,6 +676,35 @@
   dependencies:
     uuid "7.0.2"
 
+"@nestjsx/crud-request@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/crud-request/-/crud-request-4.4.2.tgz#5f88f765b9456de8edcfdc9804c193583e3b30c3"
+  integrity sha512-ayNMER3Jl/LpUDrbp/0uouHNoaK4fQSlcBVRXSMhDonimcrSI/EDTUp0ESza6DqS2jB/MRdMpS2pbA40XA0llQ==
+  dependencies:
+    "@nestjsx/util" "^4.4.2"
+    qs "^6.8.0"
+
+"@nestjsx/crud-typeorm@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/crud-typeorm/-/crud-typeorm-4.4.2.tgz#9ff4611f5222a105b932cf70f475c3131e5a718c"
+  integrity sha512-TG+dGuhqsW+WRaiaLjCH/iRvE3YrtXXyQiPIno8SSMSdBdzPGa044yuOdr6gn42zdAHryz3k5bH27JCsCLO+Yw==
+  dependencies:
+    "@zmotivat0r/o0" "^1.0.2"
+
+"@nestjsx/crud@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/crud/-/crud-4.4.2.tgz#b976089d1bf7c8a1153cebc413b9b12b5a890fbf"
+  integrity sha512-G50GthflsmwKNIf8h4rdXJxk1p2j3jTnlYQuMdMeJlrlkLiuUiMdP6qKjgLwXV08obR/X60YbdxMkFW6nMkceA==
+  dependencies:
+    "@nestjsx/crud-request" "^4.4.2"
+    "@nestjsx/util" "^4.4.2"
+    deepmerge "^3.2.0"
+
+"@nestjsx/util@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/util/-/util-4.4.2.tgz#5ea31c718bb820eba96f14a1e9166d032d0b7a3f"
+  integrity sha512-5xafmEVfPT3SmvDnXzb689fW6KOCSp8LG0EyC1PbX5pC6vssDojBYDPyQdJBxHdD0bceNN1NSMNCIQGHip5Gxw==
+
 "@nuxtjs/opencollective@0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@nuxtjs/opencollective/-/opencollective-0.2.2.tgz#26a761ebf588cc92a422d7cee996a66bd6e2761e"
@@ -684,6 +713,16 @@
     chalk "^2.4.1"
     consola "^2.3.0"
     node-fetch "^2.3.0"
+
+"@ruso/common@^0.0.1-beta.2":
+  version "0.0.1-beta.2"
+  resolved "https://registry.yarnpkg.com/@ruso/common/-/common-0.0.1-beta.2.tgz#54531355301f90e60943f02f2a14d72228e4f2d1"
+  integrity sha512-cLaUX110w0D5qbY87ImYhNGbfG24tt5a3f7afRsGlYR1k7iyze3YHp5LQbhxSSolhJ13TlMe52bLa7YFP4ZS4w==
+
+"@ruso/nestjs@^0.0.1-beta.10":
+  version "0.0.1-beta.10"
+  resolved "https://registry.yarnpkg.com/@ruso/nestjs/-/nestjs-0.0.1-beta.10.tgz#648bafd134decad0a81bf43b3179d2d6a5e611a2"
+  integrity sha512-MOFMsRUjRbV7q9YKvyITt1aFGEAiWNQ8Do5EaAcvNYGoO2/me5UFSQrgZ7z/nzDBzZOKAK2Na9EG1gRLd8qsOg==
 
 "@schematics/schematics@0.900.6":
   version "0.900.6"
@@ -1218,6 +1257,11 @@
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
+
+"@zmotivat0r/o0@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@zmotivat0r/o0/-/o0-1.0.2.tgz#5eb069a631678736234d4c34b07c3a2bae8f8e4b"
+  integrity sha512-wQ/sHqJEtYb+QtgxtWlBpGASFZ2avpoRWbvpginEuy7howZHTZTy3zYMRMaBKok4bZwIGU5bjmzE59+m1IWqKQ==
 
 abab@^2.0.0:
   version "2.0.3"
@@ -2680,6 +2724,11 @@ deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
   integrity sha1-s2nW+128E+7PUk+RsHD+7cNXzzQ=
+
+deepmerge@^3.2.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-3.3.0.tgz#d3c47fd6f3a93d517b14426b0628a17b0125f5f7"
+  integrity sha512-GRQOafGHwMHpjPx9iCvTgpu9NojZ49q794EEL94JVEw6VaeA8XTUyBKvAkOOjBX9oJNiV6G3P+T+tihFjo2TqA==
 
 deepmerge@^4.2.2:
   version "4.2.2"
@@ -6695,7 +6744,7 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-qs@^6.5.1:
+qs@^6.5.1, qs@^6.8.0:
   version "6.9.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.3.tgz#bfadcd296c2d549f1dffa560619132c977f5008e"
   integrity sha512-EbZYNarm6138UKKq46tdx08Yo/q9ZhFoAXAI1meAFd2GtbRDhbZY2WQSICskT0c5q99aFzLG1D4nvTk9tqfXIw==

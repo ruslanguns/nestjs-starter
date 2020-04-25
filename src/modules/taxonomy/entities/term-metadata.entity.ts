@@ -1,4 +1,4 @@
-import { Entity, Index, ManyToOne, OneToOne } from 'typeorm';
+import { Entity, Index, ManyToOne } from 'typeorm';
 
 import { EntityBase, EmptyEntity, BaseEntityMetadata } from '../../../common/abstracts/entities';
 import { TermEntity } from './term.entity';
@@ -7,7 +7,7 @@ import { TermEntity } from './term.entity';
 export class TermMetadataEntity extends EntityBase(BaseEntityMetadata(EmptyEntity)) {
   @Index()
   @ManyToOne(
-    type => TermEntity,
+    () => TermEntity,
     term => term.id,
     { nullable: false, cascade: true, onDelete: 'CASCADE' },
   )

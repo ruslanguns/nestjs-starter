@@ -1,8 +1,10 @@
-import { Controller, Post, Body, Get, Param, ParseArrayPipe } from '@nestjs/common';
+import { Controller, Post, Body, Get, ParseArrayPipe, UseInterceptors } from '@nestjs/common';
+import { CrudRequestInterceptor, ParsedRequest, CrudRequest } from '@nestjsx/crud';
 
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto';
 import { DataOutput, IUser } from 'src/common/interfaces';
+import { User } from './entities';
 
 @Controller('users')
 export class UsersController {
@@ -19,12 +21,8 @@ export class UsersController {
   }
 
   @Get()
-  async getAll() {
-    return { output: await this.userService.getAll() };
-  }
-
-  @Get(':id')
-  async getById(@Param('id') id: number) {
-    return { output: await this.userService.getById(id) };
+  @UseInterceptors(CrudRequestInterceptor)
+  async getAll(@ParsedRequest() query: CrudRequest): Promise<DataOutput<User[]>> {
+    return { output: await this.userService.getMany(query) };
   }
 }

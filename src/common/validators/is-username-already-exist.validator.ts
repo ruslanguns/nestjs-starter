@@ -1,10 +1,10 @@
-import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface, ValidationArguments } from 'class-validator';
+import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
 import { getRepository } from 'typeorm';
 import { User } from 'src/modules/users/entities';
 
 @ValidatorConstraint({ async: true })
 export class IsUsernameAlreadyExistConstraint implements ValidatorConstraintInterface {
-  async validate(username: any, args: ValidationArguments) {
+  async validate(username: any) {
     const query = getRepository<User>(User)
       .createQueryBuilder()
       .where('username = :username', { username });
