@@ -29,9 +29,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "typeorm:migrate": "npm run typeorm migration:generate -- -n",
-    "typeorm:run": "npm run typeorm migration:run"
+    "typeorm:run": "npm run typeorm migration:run",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "commit": "git-cz"
   },
   "dependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@hapi/joi": "17.1.1",
     "@nestjs-modules/mailer": "1.4.2",
     "@nestjs/common": "7.0.9",
@@ -78,11 +82,15 @@
     "@types/supertest": "2.0.8",
     "@typescript-eslint/eslint-plugin": "2.29.0",
     "@typescript-eslint/parser": "2.29.0",
+    "commitizen": "^4.0.4",
+    "conventional-changelog-cli": "^2.0.31",
     "cross-env": "7.0.2",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-import": "2.20.2",
+    "husky": "^4.2.5",
     "jest": "25.1.0",
+    "lint-staged": "^10.1.7",
     "prettier": "2.0.5",
     "supertest": "4.0.2",
     "ts-jest": "25.4.0",
@@ -95,6 +103,26 @@
     "minimist": "^1.2.2",
     "cryptiles": "^4.1.2",
     "hoek": "^6.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --ext ts"
+    ],
+    "*.{md,html,json,js}": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "jest": {
     "moduleFileExtensions": [
