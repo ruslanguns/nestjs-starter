@@ -855,10 +855,10 @@
   resolved "https://registry.yarnpkg.com/@ruso/common/-/common-0.0.1.tgz#75958999071c909e42df3cd86998b47924a81207"
   integrity sha512-fb7G3PMFZmGZJNRtPxhVM+TSHIzKNxgQttDZBG0L5JfZXFxqi2yb6Md/4vIPfo54r7tOnQD7Kw9Z5Nt6/5onRw==
 
-"@ruso/nestjs@^0.0.1-beta.10":
-  version "0.0.1-beta.10"
-  resolved "https://registry.yarnpkg.com/@ruso/nestjs/-/nestjs-0.0.1-beta.10.tgz#648bafd134decad0a81bf43b3179d2d6a5e611a2"
-  integrity sha512-MOFMsRUjRbV7q9YKvyITt1aFGEAiWNQ8Do5EaAcvNYGoO2/me5UFSQrgZ7z/nzDBzZOKAK2Na9EG1gRLd8qsOg==
+"@ruso/nestjs@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ruso/nestjs/-/nestjs-0.0.1.tgz#783869fb90a398909239279aead732137a04853e"
+  integrity sha512-MYCCgS+M7sJ2Ee8HbQOoEW7KnZkTRxRXZb5JtVG9aCr/4T92MEREQf3Mb+cP+LuUtBXufE3VXi8GS8/bAyikjQ==
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
