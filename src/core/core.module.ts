@@ -5,9 +5,7 @@ import { ConfigModule } from './config/config.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { MailerModule } from './mailer/mailer.module';
 
-import { InterceptorModule } from '@ruso/nestjs';
-
-const CORE_MODULES = [DatabaseModule, ConfigModule, SchedulerModule, MailerModule, InterceptorModule.forRoot()];
+const CORE_MODULES = [DatabaseModule, ConfigModule, SchedulerModule, MailerModule];
 
 @Module({
   imports: CORE_MODULES,
