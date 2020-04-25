@@ -1,3 +1,51 @@
+## 0.0.2 (2020-04-25)
+
+### Bug Fixes
+
+- **deps:** pin dependencies ([1792960](https://github.com/ruslanguns/nestjs-starter/commit/1792960379685e88a45dee317f8bbe009415e1f1))
+- **deps:** update dependency @nestjs-modules/mailer to v1.4.2 ([2e0d964](https://github.com/ruslanguns/nestjs-starter/commit/2e0d96481850e1dd3396c8e55876d81bb0575663))
+- **deps:** update dependency @nestjs/schedule to v0.3.1 ([0275220](https://github.com/ruslanguns/nestjs-starter/commit/0275220000839a9a62113c71ecb0b67a0c4ae060))
+- **deps:** update dependency class-validator to v0.12.1 ([2bc3b47](https://github.com/ruslanguns/nestjs-starter/commit/2bc3b47d09eccb2adb269ff6d6c28cf6ffefea02))
+- **deps:** update dependency class-validator to v0.12.2 ([9b46d28](https://github.com/ruslanguns/nestjs-starter/commit/9b46d284001b4be17595fa5fa4675f9baa8419a3))
+- **deps:** update dependency helmet to v3.22.0 ([51ed7c9](https://github.com/ruslanguns/nestjs-starter/commit/51ed7c91f8716d0f709621e92e7bf98a1e8975dd))
+- **deps:** update dependency pg to v8.0.2 ([e5f26fa](https://github.com/ruslanguns/nestjs-starter/commit/e5f26faca5f95d8faf7ef04b1b07cac59f8c9c4c))
+- **deps:** update dependency pg to v8.0.3 ([2481397](https://github.com/ruslanguns/nestjs-starter/commit/2481397912afe0e68a952e4358d4aefdaa899dda))
+- **deps:** update dependency rxjs to v6.5.5 ([857cd30](https://github.com/ruslanguns/nestjs-starter/commit/857cd30a0f7eb90145d31092131a4d697eab4743))
+- **deps:** update nest monorepo to v7.0.9 ([9dc778c](https://github.com/ruslanguns/nestjs-starter/commit/9dc778c5dd8177da1fc4311cbfd3374b5284a5cb))
+- entities repository not found ([8f61ac8](https://github.com/ruslanguns/nestjs-starter/commit/8f61ac8a5bed6f8044df8714800cb8730f572da9))
+- resolution vulnerabilies pkg json ([16eea34](https://github.com/ruslanguns/nestjs-starter/commit/16eea340b28fc246eed7924ab85f738b124e4dba))
+- user entity properties ([de65221](https://github.com/ruslanguns/nestjs-starter/commit/de65221c05873adc4af2763db4862586b66b70c6))
+
+### Build System
+
+- bump to known version of @ruso/common package ([f18883a](https://github.com/ruslanguns/nestjs-starter/commit/f18883a879ac2b365add694695a542d99b3a3654))
+- bump to known version of @ruso/nestjs package ([859f259](https://github.com/ruslanguns/nestjs-starter/commit/859f259217213658dd4e1edea3caf47811f06410))
+
+### Features
+
+- added support for unknown data output ([1c2e892](https://github.com/ruslanguns/nestjs-starter/commit/1c2e8929fbdd24bf3d2ce62f773e6a9c245937cd))
+- config module ([4ce4167](https://github.com/ruslanguns/nestjs-starter/commit/4ce416711028db9355b607a2d48b65e44498d421))
+- conventional commits, version, changelog, lint and hooks added" ([0e733a5](https://github.com/ruslanguns/nestjs-starter/commit/0e733a5e1ce599952678c961cec2ce83b757aa19))
+- create bulk apis for user ([0be96db](https://github.com/ruslanguns/nestjs-starter/commit/0be96db6bfbfb4d23c4ec4ad95ba35d5d9e48ae2))
+- database base model and metadata ([d64020c](https://github.com/ruslanguns/nestjs-starter/commit/d64020c6c9daf824ed0e66e2147bff9c34a85d86))
+- database migration setup done ([6729a65](https://github.com/ruslanguns/nestjs-starter/commit/6729a65da143fb5a2088300f53569420b244d7f4))
+- entity and metaEntity created for User Repository ([789c7e2](https://github.com/ruslanguns/nestjs-starter/commit/789c7e221d8d95080116c4daf1363c097d78398a))
+- some services and model adjustments for user ([ae18441](https://github.com/ruslanguns/nestjs-starter/commit/ae1844149d625179968343ce14c2ad123f97427a))
+- taxonomy module with entities repo ([bb711a3](https://github.com/ruslanguns/nestjs-starter/commit/bb711a32d4bb2f4a357bd9f1a31bb02f7943298f))
+- using abstract classes for base models ([9d6d732](https://github.com/ruslanguns/nestjs-starter/commit/9d6d73267662165b3d360a3b96ae4e9dc5ab803e))
+- **common:** server output objects ([26fbb11](https://github.com/ruslanguns/nestjs-starter/commit/26fbb112b60cb5a598c115b1e5e891dcd1e43aff))
+- **core:** scheduler module for tasks ([feadfd2](https://github.com/ruslanguns/nestjs-starter/commit/feadfd209262282d3f55481d36829159ea3d102f))
+- **database:** typegoose + base settings + crud ([26e2a25](https://github.com/ruslanguns/nestjs-starter/commit/26e2a250287deae582bb5f17dfdf82dfc03ab89a))
+- **database:** typeorm and posgrest root ([8ad1e9a](https://github.com/ruslanguns/nestjs-starter/commit/8ad1e9a7b503055ff20a9bb041ac033e66ed9e10))
+- **mailer:** mailer integration ([3c05930](https://github.com/ruslanguns/nestjs-starter/commit/3c05930b9718c78fe3e9a9cd3119f5150f57096f))
+- **modules:** otp module basic architecture ([edcfe33](https://github.com/ruslanguns/nestjs-starter/commit/edcfe33131cb88f1eb0b0418b452024e147e8401))
+- **otp:** added service otp ([27e680c](https://github.com/ruslanguns/nestjs-starter/commit/27e680c0e8e7842e6cbf0200819e15ea3c8c25c4))
+
+### BREAKING CHANGES
+
+- Will require reinstall all packages
+- Will require reinstall all packages
+
 ## 0.0.1 (2020-04-25)
 
 ### Bug Fixes
