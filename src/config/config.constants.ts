@@ -8,3 +8,5 @@ export const CONFIG_SERVER_PASSPORT = 'server.passport';
 export const CONFIG_DB_CONFIG = 'database.config';
 // MAILER NAMESPACE
 export const CONFIG_MAILER_CONFIG = 'mailer.config';
+// REGEX PATTERNS
+export const PATTERN_VALID_USERNAME = /^(?![_.0-9])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;

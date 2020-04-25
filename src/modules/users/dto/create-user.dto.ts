@@ -1,5 +1,6 @@
-import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, Matches, MinLength, MaxLength } from 'class-validator';
 import { IsUsernameAlreadyExist, IsEmailAlreadyExist } from 'src/common/validators';
+import { PATTERN_VALID_USERNAME } from '../../../config/config.constants';
 
 export class CreateUserDto {
   @IsEmailAlreadyExist({
@@ -8,16 +9,21 @@ export class CreateUserDto {
   @IsEmail()
   @IsString()
   @IsNotEmpty()
-  email: string;
+  email!: string;
 
   @IsUsernameAlreadyExist({
     message: 'Username $value already exists. Choose another username.',
   })
   @IsString()
+  @MinLength(8)
+  @MaxLength(20)
+  @Matches(PATTERN_VALID_USERNAME, {
+    message: `Username $value don't have a valid format`,
+  })
   @IsNotEmpty()
-  username: string;
+  username!: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
+  password!: string;
 }

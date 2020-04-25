@@ -1,4 +1,4 @@
-import { Column, Entity, DeleteDateColumn, Index, BeforeInsert } from 'typeorm';
+import { Column, Entity, DeleteDateColumn, Index, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { hash } from 'bcryptjs';
 
@@ -18,6 +18,7 @@ export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
   @Column({ type: 'varchar', length: 500, nullable: false, select: false })
   password: string;
 
+  @BeforeUpdate()
   @BeforeInsert()
   async hashPassword() {
     this.password = await hash(this.password, 10);
