@@ -1,4 +1,4 @@
-import { NestInterceptor, ExecutionContext, CallHandler, Injectable, ArgumentsHost } from '@nestjs/common';
+import { NestInterceptor, ExecutionContext, CallHandler, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Response } from '../interfaces/api-response.interface';
@@ -10,7 +10,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> 
       map(data => ({
         statusCode: ctx.switchToHttp().getResponse().statusCode,
         message: data.message || 'Success response',
-        data: data.output,
+        data: data.output || data,
       })),
     );
   }
