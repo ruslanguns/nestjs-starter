@@ -812,15 +812,7 @@
   dependencies:
     uuid "7.0.2"
 
-"@nestjsx/crud-request@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@nestjsx/crud-request/-/crud-request-4.4.2.tgz#5f88f765b9456de8edcfdc9804c193583e3b30c3"
-  integrity sha512-ayNMER3Jl/LpUDrbp/0uouHNoaK4fQSlcBVRXSMhDonimcrSI/EDTUp0ESza6DqS2jB/MRdMpS2pbA40XA0llQ==
-  dependencies:
-    "@nestjsx/util" "^4.4.2"
-    qs "^6.8.0"
-
-"@nestjsx/crud-request@^4.4.5":
+"@nestjsx/crud-request@4.4.5", "@nestjsx/crud-request@^4.4.5":
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/@nestjsx/crud-request/-/crud-request-4.4.5.tgz#0b073e05db7cab5ea638b6d205af767438fc96ee"
   integrity sha512-KJqDs1vv19LktjeDNpigGN+rvDrrPIhF6VpC4xhwB8kvOjncGXsEPOqOmgAgiiQLTynVLECTUszPjEEZZEqCMQ==
@@ -843,11 +835,6 @@
     "@nestjsx/crud-request" "^4.4.5"
     "@nestjsx/util" "^4.4.5"
     deepmerge "^3.2.0"
-
-"@nestjsx/util@^4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@nestjsx/util/-/util-4.4.2.tgz#5ea31c718bb820eba96f14a1e9166d032d0b7a3f"
-  integrity sha512-5xafmEVfPT3SmvDnXzb689fW6KOCSp8LG0EyC1PbX5pC6vssDojBYDPyQdJBxHdD0bceNN1NSMNCIQGHip5Gxw==
 
 "@nestjsx/util@^4.4.5":
   version "4.4.5"
