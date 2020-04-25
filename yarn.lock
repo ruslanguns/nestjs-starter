@@ -850,10 +850,10 @@
     consola "^2.3.0"
     node-fetch "^2.3.0"
 
-"@ruso/common@^0.0.1-beta.2":
-  version "0.0.1-beta.2"
-  resolved "https://registry.yarnpkg.com/@ruso/common/-/common-0.0.1-beta.2.tgz#54531355301f90e60943f02f2a14d72228e4f2d1"
-  integrity sha512-cLaUX110w0D5qbY87ImYhNGbfG24tt5a3f7afRsGlYR1k7iyze3YHp5LQbhxSSolhJ13TlMe52bLa7YFP4ZS4w==
+"@ruso/common@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@ruso/common/-/common-0.0.1.tgz#75958999071c909e42df3cd86998b47924a81207"
+  integrity sha512-fb7G3PMFZmGZJNRtPxhVM+TSHIzKNxgQttDZBG0L5JfZXFxqi2yb6Md/4vIPfo54r7tOnQD7Kw9Z5Nt6/5onRw==
 
 "@ruso/nestjs@^0.0.1-beta.10":
   version "0.0.1-beta.10"
