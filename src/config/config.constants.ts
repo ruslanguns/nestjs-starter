@@ -10,3 +10,4 @@ export const CONFIG_DB_CONFIG = 'database.config';
 export const CONFIG_MAILER_CONFIG = 'mailer.config';
 // REGEX PATTERNS
 export const PATTERN_VALID_USERNAME = /^(?![_.0-9])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+export const PATTERN_VALID_EMAIL = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

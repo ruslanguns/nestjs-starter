@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadGatewayException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CrudRequest } from '@nestjsx/crud';
-import { Repository } from 'typeorm';
+import { Repository, FindOneOptions } from 'typeorm';
 
 import { User } from './entities';
 import { CreateUserDto, UpdateUserDto } from './dto';
@@ -26,6 +26,14 @@ export class UsersService {
     try {
       const users = this.userRepository.create(dto);
       return await this.userRepository.save(users);
+    } catch (err) {
+      throw new BadGatewayException('Something happened', err);
+    }
+  }
+
+  async getByUser(data: { username?: string; email?: string }): Promise<User> {
+    try {
+      return this.userRepository.createQueryBuilder('user').where(data).addSelect('user.password').getOne();
     } catch (err) {
       throw new BadGatewayException('Something happened', err);
     }

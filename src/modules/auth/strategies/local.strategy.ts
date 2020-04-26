@@ -7,15 +7,15 @@ import { AuthService } from '../auth.service';
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({
-      usernameField: 'email',
+      usernameField: 'username',
       passwordField: 'password',
     });
   }
 
-  async validate(email: string, password: string): Promise<any> {
-    const user = await this.authService.validateUser(email, password);
+  async validate(username: string, password: string): Promise<any> {
+    const user = await this.authService.validateUser(username, password);
     if (!user) {
-      throw new UnauthorizedException('User or Password does not match.');
+      throw new UnauthorizedException('Login user or Password does not match.');
     }
     return user;
   }
