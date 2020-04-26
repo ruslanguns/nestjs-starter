@@ -13,6 +13,8 @@ export class UsersController {
   /**
    * Create User - User Registration
    * @param dto User Form
+   * // FIXME: Quitar password del output
+   * // TODO: meter el JWT para la autenticacion sobre la marcha... Valido para registros publicos.
    */
   @Post()
   async createOne(@Body() dto: CreateUserDto): Promise<DataOutput<IUser>> {
@@ -29,7 +31,7 @@ export class UsersController {
   }
 
   /**
-   * Get user by ID
+   * Get user by IDS
    * @param ids User ID integers ?ids=1,2,3
    */
   @Get('bulk')

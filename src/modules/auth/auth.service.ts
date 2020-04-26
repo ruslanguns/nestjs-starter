@@ -21,26 +21,23 @@ export class AuthService {
   constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService) {}
 
   async validateUser(userData: string, password: string): Promise<User> {
-    try {
-      // Verify if userData is email or username
-      const data: { username?: string; email?: string } = {};
-      !PATTERN_VALID_EMAIL.test(userData) ? (data.username = userData) : (data.email = userData);
+    // Verify if userData is email or username
+    const data: { username?: string; email?: string } = {};
+    !PATTERN_VALID_EMAIL.test(userData) ? (data.username = userData) : (data.email = userData);
 
-      const user = await this.usersService.getByUser(data);
-      if (!user) {
-        throw new NotFoundException('Invalid credentials');
-      }
-      const isDisabled = !user.enabled;
-      if (!isDisabled) {
-        throw new ForbiddenException('Account is disabled, contact with administrator');
-      }
-      const isMatch = await compareSync(password, user.password);
-      if (!isMatch) {
-        throw new BadRequestException('Invalid credentials');
-      }
-      delete user.password;
-      return user;
-    } catch (err) {}
+    const user = await this.usersService.getByUser(data);
+    if (!user) {
+      throw new NotFoundException('Invalid credentials');
+    }
+    if (!user.enabled) {
+      throw new ForbiddenException('Account is disabled, contact with administrator');
+    }
+    const isMatch = await compareSync(password, user.password);
+    if (!isMatch) {
+      throw new BadRequestException('Invalid credentials');
+    }
+    delete user.password;
+    return user;
   }
 
   async login(user: any) {
