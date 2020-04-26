@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadGatewayException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadGatewayException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CrudRequest } from '@nestjsx/crud';
 import { Repository } from 'typeorm';
