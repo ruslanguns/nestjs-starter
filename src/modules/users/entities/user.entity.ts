@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer';
 import { hash } from 'bcryptjs';
 
 import { EntityBaseWithDate, EntityBase, EmptyEntity } from '../../../common/abstracts';
+import { genSaltSync } from 'bcrypt';
 
 @Entity('user')
 export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
@@ -15,12 +16,15 @@ export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
   username: string;
 
   @Exclude({ toPlainOnly: true })
-  @Column({ type: 'varchar', length: 500, nullable: false, select: false })
+  @Column({ type: 'varchar', length: 500, nullable: true, select: false })
   password: string;
 
-  @BeforeUpdate()
   @BeforeInsert()
+  @BeforeUpdate()
   async hashPassword() {
+    if (!this.password) {
+      return;
+    }
     this.password = await hash(this.password, 10);
   }
 

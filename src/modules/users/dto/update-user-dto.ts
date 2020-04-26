@@ -3,23 +3,19 @@ import { IsEmail, IsString, IsOptional, MinLength, MaxLength, Matches } from 'cl
 
 import { IsEmailAlreadyExist, IsUsernameAlreadyExist } from '../../../common/validators';
 import { CreateUserDto } from './create-user.dto';
-import { PATTERN_VALID_USERNAME } from 'src/config/config.constants';
+import { PATTERN_VALID_USERNAME } from '../../../config/config.constants';
 
 export class UpdateUserDto extends PartialType(OmitType(CreateUserDto, ['email', 'username'])) {
   @IsOptional()
   id?: number;
 
-  @IsEmailAlreadyExist({
-    message: 'Email $value already exists. Choose another Email.',
-  })
+  @IsEmailAlreadyExist({ message: 'Email $value already exists. Choose another Email.' })
   @IsEmail()
   @IsString()
   @IsOptional()
   email: string;
 
-  @IsUsernameAlreadyExist({
-    message: 'Username $value already exists. Choose another username.',
-  })
+  @IsUsernameAlreadyExist({ message: 'Username $value already exists. Choose another username.' })
   @IsString()
   @MinLength(8)
   @MaxLength(20)
@@ -27,5 +23,9 @@ export class UpdateUserDto extends PartialType(OmitType(CreateUserDto, ['email',
     message: `Username $value don't have a valid format`,
   })
   @IsOptional()
-  username!: string;
+  username: string;
+
+  @IsString()
+  @IsOptional()
+  password: string;
 }

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadGatewayException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadGatewayException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CrudRequest } from '@nestjsx/crud';
 import { Repository } from 'typeorm';
@@ -60,27 +60,24 @@ export class UsersService {
   }
 
   async update(dto: UpdateUserDto) {
-    const user = await this.userRepository.findOne(dto.id).catch((err) => {
-      throw new BadGatewayException('Something happened', err);
-    });
+    const user = await this.getById(dto.id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
+    delete dto.id; // Deleting this input to avoid issues with entity
     const editedUser = Object.assign(user, dto);
-    return await this.userRepository.save([editedUser]).catch((err) => {
-      throw new BadGatewayException('Something happened', err);
-    });
+    const result = await this.userRepository.save(editedUser);
+    delete result.password;
+    return result;
   }
 
   async updateMany(dtos: UpdateUserDto[]) {
     const updatedUsers = [];
     for (const dto of dtos) {
       if (dto.id) {
-        const { id } = dto;
-        const user = await this.userRepository.findOne(id).catch((err) => {
-          throw new BadGatewayException('Something happened', err);
-        });
+        const user = await await this.getById(dto.id);
         if (!!user) {
+          delete dto.id; // Deleting this input to avoid issues with entity
           const editedUser = Object.assign(user, dto);
           updatedUsers.push(editedUser);
         }

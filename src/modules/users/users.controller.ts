@@ -14,7 +14,6 @@ export class UsersController {
    * Create User - User Registration
    * @param dto User Form
    * // FIXME: Quitar password del output
-   * // TODO: meter el JWT para la autenticacion sobre la marcha... Valido para registros publicos.
    */
   @Post()
   async createOne(@Body() dto: CreateUserDto): Promise<DataOutput<IUser>> {
@@ -65,7 +64,7 @@ export class UsersController {
    * @param dto Update User Form
    */
   @Put()
-  async updateOne(@Body() dto: UpdateUserDto): Promise<DataOutput<(User & UpdateUserDto)[]>> {
+  async updateOne(@Body() dto: UpdateUserDto) {
     return { output: await this.userService.update(dto) };
   }
 
@@ -74,7 +73,7 @@ export class UsersController {
    * @param dtos Update User Form including the ID insude
    */
   @Put('bulk')
-  async updateMany(@Body(new ParseArrayPipe({ items: UpdateUserDto })) dtos: UpdateUserDto[]): Promise<DataOutput<any>> {
+  async updateMany(@Body(new ParseArrayPipe({ items: UpdateUserDto })) dtos: UpdateUserDto[]) {
     return { output: await this.userService.updateMany(dtos) };
   }
 
