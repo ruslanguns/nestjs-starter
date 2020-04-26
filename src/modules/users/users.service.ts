@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadGatewayException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadGatewayException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CrudRequest } from '@nestjsx/crud';
 import { Repository } from 'typeorm';
@@ -15,9 +15,11 @@ export class UsersService {
 
   async create(dto: CreateUserDto): Promise<User> {
     const user = this.userRepository.create(dto);
-    return await this.userRepository.save(user).catch((err) => {
+    const result = await this.userRepository.save(user).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
+    delete result.password;
+    return result;
   }
 
   async createMany(dto: CreateUserDto[]): Promise<User[]> {
@@ -60,6 +62,10 @@ export class UsersService {
   }
 
   async update(dto: UpdateUserDto) {
+    if (!dto.id) {
+      throw new BadRequestException('You need to provide a valid id');
+    }
+
     const user = await this.getById(dto.id);
     if (!user) {
       throw new NotFoundException('User not found');
@@ -83,9 +89,15 @@ export class UsersService {
         }
       }
     }
-    return await this.userRepository.save(updatedUsers).catch((err) => {
+    const result = await this.userRepository.save(updatedUsers).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
+
+    for (const res of result) {
+      delete res.password;
+    }
+
+    return result;
   }
 
   async softDelete(id: number) {

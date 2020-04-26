@@ -32,7 +32,7 @@ export class AuthService {
     if (!user.enabled) {
       throw new ForbiddenException('Account is disabled, contact with administrator');
     }
-    const isMatch = await compareSync(password, user.password);
+    const isMatch = compareSync(password, user.password);
     if (!isMatch) {
       throw new BadRequestException('Invalid credentials');
     }

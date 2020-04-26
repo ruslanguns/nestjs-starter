@@ -65,6 +65,7 @@ export class UsersController {
    */
   @Put()
   async updateOne(@Body() dto: UpdateUserDto) {
+    console.log(dto);
     return { output: await this.userService.update(dto) };
   }
 
