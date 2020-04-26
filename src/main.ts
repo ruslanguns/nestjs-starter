@@ -18,6 +18,7 @@ async function bootstrap() {
 
   // Swagger
   const options = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Nest Starter Boilerplate')
     .setDescription('Nest collection of tools and authentication ready to use.')
     .setVersion('1.0')

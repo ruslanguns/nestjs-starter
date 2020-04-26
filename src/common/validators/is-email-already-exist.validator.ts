@@ -5,9 +5,7 @@ import { User } from 'src/modules/users/entities';
 @ValidatorConstraint({ async: true })
 export class IsEmailAlreadyExistConstraint implements ValidatorConstraintInterface {
   async validate(email: any) {
-    const query = getRepository<User>(User)
-      .createQueryBuilder()
-      .where('email = :email', { email });
+    const query = getRepository<User>(User).createQueryBuilder().where('email = :email', { email });
     const result = await query.getOne(); // return true if user exists
     if (result) return false;
     return true;
@@ -15,7 +13,7 @@ export class IsEmailAlreadyExistConstraint implements ValidatorConstraintInterfa
 }
 
 export function IsEmailAlreadyExist(validationOptions?: ValidationOptions) {
-  return function(object: Record<string, any>, propertyName: string) {
+  return function (object: Record<string, any>, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,

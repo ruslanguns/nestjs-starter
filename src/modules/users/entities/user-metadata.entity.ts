@@ -6,11 +6,7 @@ import { User } from './user.entity';
 @Entity('user_metadata')
 export class UserMetadata extends EntityBase(BaseEntityMetadata(EmptyEntity)) {
   @Index()
-  @ManyToOne(
-    () => User,
-    user => user.id,
-    { nullable: false, cascade: ['soft-remove'] },
-  )
+  @ManyToOne(() => User, (user) => user.id, { nullable: false, cascade: ['soft-remove'] })
   userId!: User;
 
   @DeleteDateColumn({ name: 'deleted_at' })

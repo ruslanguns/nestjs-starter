@@ -7,7 +7,7 @@ import { Response } from '../interfaces/api-response.interface';
 export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> {
   intercept(ctx: ExecutionContext, next: CallHandler): Observable<Response<T>> {
     return next.handle().pipe(
-      map(data => ({
+      map((data) => ({
         statusCode: ctx.switchToHttp().getResponse().statusCode,
         message: data.message || 'Success response',
         data: data.output || data,
