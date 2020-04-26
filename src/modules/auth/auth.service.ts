@@ -2,36 +2,43 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
 
-import { DataOutput } from '../../common/interfaces/api-response.interface';
 import { UsersService } from '../users/users.service';
+import { PATTERN_VALID_EMAIL } from '../../config/config.constants';
+import { User } from '../users/entities';
 
 export interface ApiLoginSuccess {
-  user: ''; // TODO: poner el tipado correcto del modelo
+  user: User;
   accessToken: string;
 }
 
 export interface JwtPayload {
-  id: string;
+  sub: string;
+  username: string;
 }
 
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
-    // const user = await this.usersService.findOneAsync({ email });
-    // if (!user) {
-    //     throw new NotFoundException('Invalid credentials');
-    // }
-    // const isMatch = await compareSync(password, user.password);
-    // if (!isMatch) {
-    //     throw new BadRequestException('Invalid credentials');
-    // }
-    // return user;
+  async validateUser(userData: string, password: string): Promise<User> {
+    // Verify if userData is email or username
+    const data: { username?: string; email?: string } = {};
+    !PATTERN_VALID_EMAIL.test(userData) ? (data.username = userData) : (data.email = userData);
+
+    const user = await this.usersService.getByUser(data);
+    if (!user) {
+      throw new NotFoundException('Invalid credentials');
+    }
+    const isMatch = await compareSync(password, user.password);
+    if (!isMatch) {
+      throw new BadRequestException('Invalid credentials');
+    }
+    delete user.password;
+    return user;
   }
 
-  async login(user: any): Promise<DataOutput<ApiLoginSuccess>> {
-    const payload: JwtPayload = { id: '123' };
+  async login(user: any) {
+    const payload: JwtPayload = { username: user.username, sub: user.id };
     return {
       output: {
         user,
