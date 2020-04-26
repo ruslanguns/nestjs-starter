@@ -61,7 +61,7 @@ export class UsersService {
     });
   }
 
-  async update(dto: UpdateUserDto) {
+  async update(dto: UpdateUserDto): Promise<User> {
     if (!dto.id) {
       throw new BadRequestException('You need to provide a valid id');
     }
@@ -72,12 +72,12 @@ export class UsersService {
     }
     delete dto.id; // Deleting this input to avoid issues with entity
     const editedUser = Object.assign(user, dto);
-    const result = await this.userRepository.save(editedUser);
+    const result = await this.userRepository.save<User>(editedUser);
     delete result.password;
     return result;
   }
 
-  async updateMany(dtos: UpdateUserDto[]) {
+  async updateMany(dtos: UpdateUserDto[]): Promise<User[]> {
     const updatedUsers = [];
     for (const dto of dtos) {
       if (dto.id) {
@@ -89,7 +89,7 @@ export class UsersService {
         }
       }
     }
-    const result = await this.userRepository.save(updatedUsers).catch((err) => {
+    const result = await this.userRepository.save<User>(updatedUsers).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
 

@@ -3,7 +3,6 @@ import { Exclude } from 'class-transformer';
 import { hash } from 'bcryptjs';
 
 import { EntityBaseWithDate, EntityBase, EmptyEntity } from '../../../common/abstracts';
-import { genSaltSync } from 'bcrypt';
 
 @Entity('user')
 export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
