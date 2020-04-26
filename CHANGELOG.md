@@ -1,3 +1,5 @@
+# [0.2.0](https://github.com/ruslanguns/nestjs-starter/compare/0.1.0...0.2.0) (2020-04-26)
+
 # [0.1.0](https://github.com/ruslanguns/nestjs-starter/compare/0.0.3...0.1.0) (2020-04-26)
 
 ### Bug Fixes
