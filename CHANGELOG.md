@@ -1,3 +1,21 @@
+# [0.1.0](https://github.com/ruslanguns/nestjs-starter/compare/0.0.3...0.1.0) (2020-04-26)
+
+### Bug Fixes
+
+- return exception on invalid dto body update user ([7b9d423](https://github.com/ruslanguns/nestjs-starter/commit/7b9d42351fea72cc1c2655e36655b4d80ecfc9c1))
+- **deps:** pin dependencies ([bac7713](https://github.com/ruslanguns/nestjs-starter/commit/bac77131a3c75f6230f721dec39e50d63c026735))
+- fixed auth/profile endpoint ([6eff261](https://github.com/ruslanguns/nestjs-starter/commit/6eff26192bb37173204450f5ffa76ee596dc467b))
+- nested exception fixed ([4aaad25](https://github.com/ruslanguns/nestjs-starter/commit/4aaad25a1f905acad89b041ab29784d47db39733))
+- user update one and bulk fixed ([880c5fe](https://github.com/ruslanguns/nestjs-starter/commit/880c5fe04d0387015dd6225775018ae04bc6ecff))
+- **deps:** update dependency @nestjsx/crud to v4.4.5 ([2dd2011](https://github.com/ruslanguns/nestjs-starter/commit/2dd20110250375afec9f9a4c44d47f5adc4f985c))
+- **deps:** update dependency @nestjsx/crud-request to v4.4.5 ([c44222f](https://github.com/ruslanguns/nestjs-starter/commit/c44222f52880568afdc8d20beb90e0f0bdabfce2))
+
+### Features
+
+- globalPipes adjustments ([f3de78a](https://github.com/ruslanguns/nestjs-starter/commit/f3de78a8ba97a9147464c4208747dbb5eb7d0bd4))
+- new disable/enable api enpoints for users ([85abef0](https://github.com/ruslanguns/nestjs-starter/commit/85abef033d471cf528bf1324106833d4168ac066))
+- user feature completed ([faba353](https://github.com/ruslanguns/nestjs-starter/commit/faba353c2489b327da725ddbb30e202fa653117e))
+
 ## [0.0.3](https://github.com/ruslanguns/nestjs-starter/compare/0.0.2...0.0.3) (2020-04-25)
 
 ### Bug Fixes
