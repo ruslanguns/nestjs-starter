@@ -12,7 +12,7 @@ export interface ApiLoginSuccess {
 }
 
 export interface JwtPayload {
-  sub: string;
+  sub: number;
   username: string;
 }
 
@@ -27,7 +27,7 @@ export class AuthService {
 
     const user = await this.usersService.getByUser(data);
     if (!user) {
-      throw new NotFoundException('Invalid credentials');
+      throw new NotFoundException('Your account does not exist');
     }
     if (!user.enabled) {
       throw new ForbiddenException('Account is disabled, contact with administrator');
