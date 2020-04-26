@@ -13,7 +13,6 @@ export class UsersController {
   /**
    * Create User - User Registration
    * @param dto User Form
-   * // FIXME: Quitar password del output
    */
   @Post()
   async createOne(@Body() dto: CreateUserDto): Promise<DataOutput<IUser>> {
@@ -32,6 +31,7 @@ export class UsersController {
   /**
    * Get user by IDS
    * @param ids User ID integers ?ids=1,2,3
+   * @example /users/bulk?ids=14,15
    */
   @Get('bulk')
   async getByIds(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]): Promise<DataOutput<User[]>> {
@@ -41,9 +41,10 @@ export class UsersController {
   /**
    * Get user by ID
    * @param id User ID integer
+   * @example /users/123456 where 123456 is User ID
    */
   @Get(':id')
-  async getById(@Param('id') id: number): Promise<DataOutput<User>> {
+  async getById(@Param('id') id: number): Promise<DataOutput<User | null>> {
     return { output: await this.userService.getById(id) };
   }
 
@@ -65,7 +66,6 @@ export class UsersController {
    */
   @Put()
   async updateOne(@Body() dto: UpdateUserDto) {
-    console.log(dto);
     return { output: await this.userService.update(dto) };
   }
 
@@ -82,7 +82,7 @@ export class UsersController {
    * Delete many (SOFT DELETION)
    * @param ids User ID integers ?ids=1,2,3
    */
-  @Delete()
+  @Delete('bulk')
   async deleteMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
     return { output: await this.userService.softDeleteMany(ids) };
   }
@@ -100,7 +100,7 @@ export class UsersController {
    * Delete many (ATENTTION: PERMANENT DELETION)
    * @param ids User ID integers ?ids=1,2,3
    */
-  @Delete('hard')
+  @Delete('hard/bulk')
   async hardDeleteMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
     return { output: await this.userService.deleteMany(ids) };
   }

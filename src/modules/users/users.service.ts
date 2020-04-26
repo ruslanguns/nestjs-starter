@@ -24,9 +24,14 @@ export class UsersService {
 
   async createMany(dto: CreateUserDto[]): Promise<User[]> {
     const users = this.userRepository.create(dto);
-    return await this.userRepository.save(users).catch((err) => {
+    const result = await this.userRepository.save(users).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
+
+    for (const res of result) {
+      delete res.password;
+    }
+    return result;
   }
 
   async getByUser(data: { username?: string; email?: string }): Promise<User> {

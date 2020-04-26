@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
@@ -14,6 +15,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Bootstrap');
   const configService = app.get(ConfigService);
+
+  // Swagger
+  const options = new DocumentBuilder()
+    .setTitle('Nest Starter Boilerplate')
+    .setDescription('Nest collection of tools and authentication ready to use.')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
 
   // Environments
   const port = configService.get<number>(CONFIG_SERVER_PORT);
