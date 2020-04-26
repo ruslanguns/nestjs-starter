@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadGatewayException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CrudRequest } from '@nestjsx/crud';
-import { Repository, FindOneOptions } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { User } from './entities';
 import { CreateUserDto, UpdateUserDto } from './dto';
@@ -33,7 +33,7 @@ export class UsersService {
 
   async getByUser(data: { username?: string; email?: string }): Promise<User> {
     try {
-      return this.userRepository.createQueryBuilder('user').where(data).addSelect('user.password').getOne();
+      return this.userRepository.createQueryBuilder('user').where(data).addSelect('user.password').addSelect('user.enabled').getOne();
     } catch (err) {
       throw new BadGatewayException('Something happened', err);
     }
@@ -138,6 +138,62 @@ export class UsersService {
   async restoreMany(ids: number[]) {
     try {
       return await this.userRepository.restore(ids);
+    } catch (err) {
+      throw new BadGatewayException('Something happened', err);
+    }
+  }
+
+  async disable(id: number) {
+    try {
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .addSelect('user.enabled')
+        .update()
+        .set({ enabled: false })
+        .where('id = :id', { id })
+        .execute();
+    } catch (err) {
+      throw new BadGatewayException('Something happened', err);
+    }
+  }
+
+  async disableMany(ids: number[]) {
+    try {
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .addSelect('user.enabled')
+        .update()
+        .set({ enabled: false })
+        .where('id IN (:...ids)', { ids })
+        .execute();
+    } catch (err) {
+      throw new BadGatewayException('Something happened', err);
+    }
+  }
+
+  async enable(id: number) {
+    try {
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .addSelect('user.enabled')
+        .update()
+        .set({ enabled: true })
+        .where('id = :id', { id })
+        .execute();
+    } catch (err) {
+      throw new BadGatewayException('Something happened', err);
+    }
+  }
+
+  async enableMany(ids: number[]) {
+    try {
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .addSelect('user.enabled')
+        .update()
+        .set({ enabled: true })
+        .where('id IN (:...ids)', { ids })
+        .execute();
     } catch (err) {
       throw new BadGatewayException('Something happened', err);
     }

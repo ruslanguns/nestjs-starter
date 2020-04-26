@@ -129,4 +129,40 @@ export class UsersController {
   async restore(@Param('id') id: number) {
     return { output: await this.userService.restore(id) };
   }
+
+  /**
+   * Disable users
+   * @param ids User ID integers ?ids=1,2,3
+   */
+  @Patch('disable/bulk')
+  async disableMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
+    return { output: await this.userService.disableMany(ids) };
+  }
+
+  /**
+   * Disable one user
+   * @param ids User ID integer
+   */
+  @Patch('disable/:id')
+  async disable(@Param('id') id: number) {
+    return { output: await this.userService.disable(id) };
+  }
+
+  /**
+   * Enable users
+   * @param ids User ID integers ?ids=1,2,3
+   */
+  @Patch('enable/bulk')
+  async enableMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
+    return { output: await this.userService.enableMany(ids) };
+  }
+
+  /**
+   * Enable one user
+   * @param ids User ID integer
+   */
+  @Patch('enable/:id')
+  async enable(@Param('id') id: number) {
+    return { output: await this.userService.enable(id) };
+  }
 }

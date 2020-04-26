@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
 
@@ -29,6 +29,10 @@ export class AuthService {
       const user = await this.usersService.getByUser(data);
       if (!user) {
         throw new NotFoundException('Invalid credentials');
+      }
+      const isDisabled = !user.enabled;
+      if (!isDisabled) {
+        throw new ForbiddenException('Account is disabled, contact with administrator');
       }
       const isMatch = await compareSync(password, user.password);
       if (!isMatch) {
