@@ -41,8 +41,7 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req, @Body() loginDto: LoginDto) {
-    const accessToken = await this.authService.login(loginDto);
-    return { output: { user: req.user, accessToken } };
+    return await this.authService.login(req.user);
   }
 
   /**
@@ -61,6 +60,8 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('auth/profile')
   async profile(@Request() req) {
+    console.log(req.user);
+
     return { output: req.user };
   }
 }
