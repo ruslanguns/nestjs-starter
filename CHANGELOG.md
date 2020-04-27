@@ -1,3 +1,9 @@
+# [0.3.0](https://github.com/ruslanguns/nestjs-starter/compare/0.2.1...0.3.0) (2020-04-27)
+
+### Features
+
+- **docker:** deployment with scripts implemented ([912638a](https://github.com/ruslanguns/nestjs-starter/commit/912638a670e2a8d9c59c37d21077043cd848312b))
+
 ## [0.2.1](https://github.com/ruslanguns/nestjs-starter/compare/0.2.0...0.2.1) (2020-04-27)
 
 ### Bug Fixes
