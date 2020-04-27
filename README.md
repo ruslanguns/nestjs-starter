@@ -1,5 +1,7 @@
 # NestJs Starter
 
+![badge](https://github.com/ruslanguns/nestjs-starter/workflows/CI/badge.svg)
+
 ## in progress
 
 ## Description
