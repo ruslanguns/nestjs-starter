@@ -8,7 +8,5 @@ services:
       - "3000:3000"
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/dist
-      - /usr/src/app/node_modules
     env_file:
       - environment/.env.production
