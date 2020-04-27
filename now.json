@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/main.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/main.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "@node_env",
+    "PORT": "3000",
+    "DATABASE_HOST": "@database_host",
+    "DATABASE_LOGGING": "@database_logging",
+    "DATABASE_SYNC": "false",
+    "DATABASE_PORT": "@database_port",
+    "POSTGRES_DB": "@postgres_db",
+    "POSTGRES_PASSWORD": "@postgres_password",
+    "POSTGRES_USER": "@postgres_user",
+    "JWT_SECRET": "@jwt_secret",
+    "JWT_EXPIRATION": "@jwt_expiration",
+    "EMAIL_HOST": "@email_host",
+    "EMAIL_PORT": "@email_port",
+    "EMAIL_SECURE": "@email_secure",
+    "EMAIL_PASS": "@email_pass",
+    "EMAIL_USER": "@email_user",
+    "EMAIL_DEFAULT_FROM_EMAIL": "@email_default_from_email",
+    "EMAIL_DEFAULT_FROM_NAME": "@email_default_from_name"
+  }
+}

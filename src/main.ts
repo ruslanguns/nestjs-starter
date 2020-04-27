@@ -24,7 +24,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('', app, document);
 
   // Environments
   const port = configService.get<number>(CONFIG_SERVER_PORT);

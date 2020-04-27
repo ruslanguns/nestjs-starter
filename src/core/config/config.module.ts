@@ -9,6 +9,7 @@ import mailerConfig from 'src/config/mailer.config';
 @Module({
   imports: [
     ConfigModulePackage.forRoot({
+      ignoreEnvFile: process.env.NODE_ENV === 'production' ? true : false,
       envFilePath: `environment/.env.${process.env.NODE_ENV || 'development'}`,
       load: [serverConfig, databaseConfig, mailerConfig],
       validationSchema: configSchema,

@@ -6,21 +6,43 @@
 
 This aplication server is made with [NestJS](https://nestjs.com) and provides a scaffold with a kit of tools and utils to reduce the boilerplate when you are starting a new backend project.
 
-## Features
+## Features and Todo's
 
 - [x] Clean architecture
-- [x] Interceptors for logging and formating
+- [x] Interceptors for logging and formating the output message DataOutput interface
 - [x] Filters for error logging handling
 - [x] Tested collection of utils
+- [x] Security - Helmet
+- [x] Security - Cors
+- [x] Security - Rate limit
+- [x] Performance - Compress
+- [ ] Performance - Caching
+- [x] Package @nestjs-modules/mailer for Mail integration
 - [x] Package @nestjs/config integration with some extra tricks
 - [x] Package @nestjs-modules/mailer integration
-- [x] Package @nestjs/scheduler integration
+- [x] Package @nestjs/scheduler integration for scheduled tasks
 - [x] Package @nestjs/typeorm integration
-- [ ] Testings
-- [ ] Package @nestjs/bull integration
+- [ ] Package @nestjs/bull integration for queues
+- [ ] Package @ogma/logger integration for awesome logger
+- [x] Model / Entities Abstractions
 - [x] Authentication with Passport Local Strategy
 - [x] Authentication with Passport JWT Strategy
-- [ ] OTP -One Time Password-
+- [ ] Authentication with Passport Google Strategy
+- [ ] Authentication with Passport Facebook Strategy
+- [ ] Authentication with Passport Twitter Strategy
+- [ ] Authentication with Passport Github Strategy
+- [ ] Files feature API Enpoint
+- [ ] Files metadata API Enpoint Plus
+- [x] User feature API Enpoint
+- [ ] User metadata API Enpoint Plus - In progress
+- [ ] Taxonomy feature API Endpoint - In progress
+- [ ] Taxonomy metadata API Enpoint Plus - In progress
+- [ ] Unit / Integration Testings - In progress
+- [ ] E2E Testings
+- [ ] Cypress Integration for e2e testings
+- [ ] OTP -One Time Password
+- [ ] Deploy with zeit now - In progress
+- [x] Deploy with Docker - [See here instructions](#deploy-with-docker-instructions)
 - [ ] IN PROGRESS!
 
 ## Requirements
@@ -40,7 +62,7 @@ Under the environment folder you will find the samples for your env files.
 
 To use `.env.development` environments export NODE_ENV=development variable in your operating system, or use the cross-env which is installed in the dev dependencies of this project. To use it just run the following command before your development process:
 
-`$ npx cross_env NODE_ENV=production ... # that will point to your .env.production env file`
+`$ npx cross_env NODE-ENV=production ... # that will point to your .env.production env file`
 
 ## Running the app
 
@@ -69,7 +91,6 @@ $ yarn test:cov
 ```
 
 ## Instruction to use Docker for Database
-
 
 Build image in background and run with logs:
 
@@ -104,7 +125,45 @@ docker-compose -f database.yml down
 docker-compose -f database.yml down --volumes
 ```
 
+## Deploy with docker instructions
 
+If run for the first time you need to run the quick script for building the image and running for the first time:
+
+```bash
+yarn deploy:docker:build
+```
+
+Then to stop you need to run:
+
+```bash
+yarn deploy:docker:stop
+```
+
+To start an already builded & stoped image:
+
+```bash
+yarn deploy:docker:start
+```
+
+To debug:
+
+```bash
+yarn deploy:docker:debug
+```
+
+If you make changes in the code then you need to rebuild the image, make sure you have stoped its containers first and then run:
+
+```bash
+yarn deploy:docker:rebuild
+```
+
+Then you should recreate the containers in order to get the latest image changes.
+
+```bash
+yarn deploy:docker:recreate
+```
+
+And that's it!
 
 ## Contact information
 

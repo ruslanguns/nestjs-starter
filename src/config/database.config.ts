@@ -16,7 +16,7 @@ function typeormModuleOptions(): TypeOrmModuleOptions {
     // Run migrations automatically,
     // you can disable this if you prefer running migration manually.
     migrationsRun: false,
-    logging: true,
+    logging: Boolean(process.env.DATABASE_LOGGING) || true,
     logger: 'file',
 
     // Allow both start:prod and start:dev to use migrations

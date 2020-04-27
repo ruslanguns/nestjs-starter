@@ -1,0 +1,7 @@
+.vscode
+.environment
+.github
+ormlogs.log
+database.yml
+test
+node_modules
