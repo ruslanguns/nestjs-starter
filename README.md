@@ -2,10 +2,6 @@
 
 ![badge](https://github.com/ruslanguns/nestjs-starter/workflows/CI/badge.svg)
 
-## in progress
-
-## Description
-
 This aplication server is made with [NestJS](https://nestjs.com) and provides a scaffold with a kit of tools and utils to reduce the boilerplate when you are starting a new backend project.
 
 ## Features and Todo's
