@@ -6,6 +6,7 @@ This aplication server is made with [NestJS](https://nestjs.com) and provides a 
 
 ## Features and Todo's
 
+- [x] IN PROGRESS!
 - [x] Clean architecture
 - [x] Interceptors for logging and formating the output message DataOutput interface
 - [x] Filters for error logging handling
@@ -41,7 +42,6 @@ This aplication server is made with [NestJS](https://nestjs.com) and provides a 
 - [ ] OTP -One Time Password
 - [ ] Deploy with zeit now - In progress
 - [x] Deploy with Docker - [See here instructions](#deploy-with-docker-instructions)
-- [ ] IN PROGRESS!
 
 ## Requirements
 
