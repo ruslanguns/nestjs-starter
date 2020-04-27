@@ -1,3 +1,9 @@
+## [0.2.1](https://github.com/ruslanguns/nestjs-starter/compare/0.2.0...0.2.1) (2020-04-27)
+
+### Bug Fixes
+
+- **auth:** fix secutiry vulnerability in req.user ([2419161](https://github.com/ruslanguns/nestjs-starter/commit/241916177cc39b1ff442fc0f67466565b30deaff))
+
 # [0.2.0](https://github.com/ruslanguns/nestjs-starter/compare/0.1.0...0.2.0) (2020-04-26)
 
 # [0.1.0](https://github.com/ruslanguns/nestjs-starter/compare/0.0.3...0.1.0) (2020-04-26)
