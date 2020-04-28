@@ -15,11 +15,19 @@ export class UsersService {
     private readonly userMetadataRepository: Repository<UserMetadata>,
   ) {}
 
+  /**
+   * Get User Metadata by User Id
+   * @param id User ID
+   */
   async getUserMeta(id: number) {
     const user = await this.userRepository.findOne(id);
     return await this.userMetadataRepository.find({ user });
   }
 
+  /**
+   * Create user
+   * @param dto CreateUserDto
+   */
   async create(dto: CreateUserDto): Promise<User> {
     const user = await this.userRepository.create(dto);
     const result = await this.userRepository.save(user);
@@ -27,6 +35,10 @@ export class UsersService {
     return result;
   }
 
+  /**
+   * Create users in batch
+   * @param dto Array of CreateUserDto
+   */
   async createMany(dto: CreateUserDto[]): Promise<User[]> {
     const users = this.userRepository.create(dto);
     const result = await this.userRepository.save(users).catch((err) => {
@@ -39,6 +51,10 @@ export class UsersService {
     return result;
   }
 
+  /**
+   * Get by username or email
+   * @param data { username: string, email: string }
+   */
   async getByUser(data: { username?: string; email?: string }): Promise<User> {
     return this.userRepository
       .createQueryBuilder('user')
@@ -51,6 +67,10 @@ export class UsersService {
       });
   }
 
+  /**
+   * Get user by id
+   * @param id User id
+   */
   async getById(id: number): Promise<User | null> {
     return (
       (await this.userRepository.findOne(id).catch((err) => {
@@ -59,18 +79,30 @@ export class UsersService {
     );
   }
 
+  /**
+   * Get users by ids
+   * @param ids Get user by array of Ids
+   */
   async getByIds(ids: number[]): Promise<User[]> {
     return await this.userRepository.findByIds(ids).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
 
+  /**
+   * Get all users
+   * @param query Query Params [CrudRequest] https://github.com/nestjsx/crud/wiki/Requests#query-params
+   */
   async getMany(query?: CrudRequest): Promise<User[]> {
     return await this.userRepository.find().catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
 
+  /**
+   * Update an user
+   * @param dto UpdateUserDto
+   */
   async update(dto: UpdateUserDto): Promise<User> {
     if (!dto.id) {
       throw new BadRequestException('You need to provide a valid id');
@@ -87,6 +119,10 @@ export class UsersService {
     return result;
   }
 
+  /**
+   * Update users in batch
+   * @param dtos Array of UpdateUserDto
+   */
   async updateMany(dtos: UpdateUserDto[]): Promise<User[]> {
     const updatedUsers = [];
     for (const dto of dtos) {
@@ -110,42 +146,70 @@ export class UsersService {
     return result;
   }
 
+  /**
+   * Soft delete an user by id
+   * @param id User id
+   */
   async softDelete(id: number) {
     return await this.userRepository.softDelete(id).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
 
+  /**
+   * Soft delete users in batch
+   * @param ids Array of user ids
+   */
   async softDeleteMany(ids: number[]) {
     return await this.userRepository.softDelete(ids).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
 
+  /**
+   * Hard delete an user by id
+   * @param id User id
+   */
   async delete(id: number) {
     return await this.userRepository.delete(id).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
 
+  /**
+   * Hard delete of users in batch by ids
+   * @param ids Array of user ids
+   */
   async deleteMany(ids: number[]) {
     return await this.userRepository.delete(ids).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
 
+  /**
+   * Restore soft-deleted user by id
+   * @param id User id
+   */
   async restore(id: number) {
     return await this.userRepository.restore(id).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
 
+  /**
+   * Restore soft-deleted users in batch by ids
+   * @param ids Array of ids
+   */
   async restoreMany(ids: number[]) {
     return await this.userRepository.restore(ids).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
 
+  /**
+   * Disable an user
+   * @param id User id
+   */
   async disable(id: number) {
     return await this.userRepository
       .createQueryBuilder('user')
@@ -159,6 +223,10 @@ export class UsersService {
       });
   }
 
+  /**
+   * Disable users in batch by ids
+   * @param ids Array of user ids
+   */
   async disableMany(ids: number[]) {
     return await this.userRepository
       .createQueryBuilder('user')
@@ -172,6 +240,10 @@ export class UsersService {
       });
   }
 
+  /**
+   * Enable user by id
+   * @param id User id
+   */
   async enable(id: number) {
     return await this.userRepository
       .createQueryBuilder('user')
@@ -185,6 +257,10 @@ export class UsersService {
       });
   }
 
+  /**
+   * Enable users in batch by ids
+   * @param ids Array of user ids
+   */
   async enableMany(ids: number[]) {
     return await this.userRepository
       .createQueryBuilder('user')
