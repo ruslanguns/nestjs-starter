@@ -4,10 +4,9 @@ import { CoreModule } from './core';
 import { AuthModule, UsersModule } from './modules';
 
 import { AppController } from './app.controller';
-import { TaxonomyModule } from './modules/taxonomy/taxonomy.module';
 
 @Module({
   controllers: [AppController],
-  imports: [CoreModule, AuthModule, UsersModule, TaxonomyModule],
+  imports: [CoreModule, AuthModule, UsersModule],
 })
 export class AppModule {}

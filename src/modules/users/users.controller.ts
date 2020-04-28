@@ -1,10 +1,5 @@
 import { Controller, Post, Body, Get, ParseArrayPipe, UseInterceptors, Param, Query, Put, Delete, Patch } from '@nestjs/common';
 import { CrudRequestInterceptor, ParsedRequest, CrudRequest } from '@nestjsx/crud';
-
-import { UsersService } from './users.service';
-import { CreateUserDto, UpdateUserDto } from './dto';
-import { DataOutput, IUser } from 'src/common/interfaces';
-import { User } from './entities';
 import {
   ApiTags,
   ApiCreatedResponse,
@@ -17,6 +12,11 @@ import {
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
+
+import { UsersService } from './users.service';
+import { CreateUserDto, UpdateUserDto } from './dto';
+import { DataOutput, IUser } from 'src/common/interfaces';
+import { User } from './entities';
 
 @ApiTags('Users')
 @Controller('users')

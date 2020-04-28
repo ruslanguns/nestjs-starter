@@ -13,7 +13,7 @@ export class EmptyEntity {}
  */
 export function EntityBase<TBase extends Constructor>(Base: TBase) {
   abstract class AbstractBase extends Base {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ type: 'bigint' })
     id: number;
   }
 
@@ -27,6 +27,7 @@ export function EntityBase<TBase extends Constructor>(Base: TBase) {
 export function EntityBaseWithDate<TBase extends Constructor>(Base: TBase) {
   abstract class AbstractBase extends Base {
     @CreateDateColumn({
+      name: 'created_at',
       type: 'timestamp',
       nullable: true,
       default: () => 'CURRENT_TIMESTAMP(6)',
@@ -34,6 +35,7 @@ export function EntityBaseWithDate<TBase extends Constructor>(Base: TBase) {
     createdAt: Date;
 
     @UpdateDateColumn({
+      name: 'updated_at',
       type: 'timestamp',
       default: () => 'CURRENT_TIMESTAMP(6)',
       onUpdate: 'CURRENT_TIMESTAMP(6)',

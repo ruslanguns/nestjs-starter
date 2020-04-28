@@ -4,7 +4,7 @@
 
 This aplication server is made with [NestJS](https://nestjs.com) and provides a scaffold with a kit of tools and utils to reduce the boilerplate when you are starting a new backend project.
 
-## Features and Todo's
+## Roadmap
 
 - [x] IN PROGRESS!
 - [x] Clean architecture
@@ -34,8 +34,6 @@ This aplication server is made with [NestJS](https://nestjs.com) and provides a 
 - [ ] Files metadata API Enpoint Plus
 - [x] User feature API Enpoint
 - [ ] User metadata API Enpoint Plus - In progress
-- [ ] Taxonomy feature API Endpoint - In progress
-- [ ] Taxonomy metadata API Enpoint Plus - In progress
 - [ ] Unit / Integration Testings - In progress
 - [ ] E2E Testings
 - [ ] Cypress Integration for e2e testings

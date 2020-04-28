@@ -17,7 +17,6 @@ import { AuthService } from './modules/auth/auth.service';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { LoginDto } from './modules/auth/dtos';
 import { User } from './modules/users/entities';
-import { DataOutput } from './common/interfaces';
 
 @ApiTags('Authentication')
 @ApiBearerAuth()
@@ -60,8 +59,6 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('auth/profile')
   async profile(@Request() req) {
-    console.log(req.user);
-
     return { output: req.user };
   }
 }

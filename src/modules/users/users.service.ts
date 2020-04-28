@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CrudRequest } from '@nestjsx/crud';
 import { Repository } from 'typeorm';
 
-import { User } from './entities';
+import { User, UserMetadata } from './entities';
 import { CreateUserDto, UpdateUserDto } from './dto';
 
 @Injectable()
@@ -11,13 +11,18 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(UserMetadata)
+    private readonly userMetadataRepository: Repository<UserMetadata>,
   ) {}
 
+  async getUserMeta(id: number) {
+    const user = await this.userRepository.findOne(id);
+    return await this.userMetadataRepository.find({ user });
+  }
+
   async create(dto: CreateUserDto): Promise<User> {
-    const user = this.userRepository.create(dto);
-    const result = await this.userRepository.save(user).catch((err) => {
-      throw new BadGatewayException('Something happened', err);
-    });
+    const user = await this.userRepository.create(dto);
+    const result = await this.userRepository.save(user);
     delete result.password;
     return result;
   }
