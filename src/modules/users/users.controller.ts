@@ -1,5 +1,4 @@
-import { Controller, Post, Body, Get, ParseArrayPipe, UseInterceptors, Param, Query, Put, Delete, Patch } from '@nestjs/common';
-import { CrudRequestInterceptor, ParsedRequest, CrudRequest } from '@nestjsx/crud';
+import { Controller, Post, Body, Get, ParseArrayPipe, Param, Query, Put, Delete, Patch } from '@nestjs/common';
 import {
   ApiTags,
   ApiCreatedResponse,
@@ -12,31 +11,36 @@ import {
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
+import { Crud, CrudController } from '@nestjsx/crud';
 
-import { UsersService } from './users.service';
+import { UsersService } from './services';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { DataOutput, IUser } from 'src/common/interfaces';
 import { User } from './entities';
 
 @ApiTags('Users')
+@Crud({
+  model: {
+    type: User,
+  },
+  routes: {
+    only: ['getOneBase', 'getManyBase', 'updateOneBase'],
+  },
+  serialize: {
+    getMany: User,
+  },
+  query: {
+    maxLimit: 100,
+    cache: 1000,
+    alwaysPaginate: true,
+  },
+})
 @Controller('users')
-export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+export class UsersController implements CrudController<User> {
+  constructor(public service: UsersService) {}
 
-  /**
-   * Create User  - Single
-   * @param dto User Form
-   * @example POST /users
-   */
-  @ApiOperation({ summary: 'Create User  - Single', description: 'Register an user, this can be public or privated.' })
-  @ApiCreatedResponse({ status: 201, description: 'User created successfully', type: User })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiBadRequestResponse({ status: 400, description: 'You will prompt with the validation issues' })
-  @ApiBody({ type: CreateUserDto })
-  @Post()
-  async createOne(@Body() dto: CreateUserDto): Promise<DataOutput<User>> {
-    return { message: 'User created successfully', output: await this.userService.create(dto) };
+  get base(): CrudController<User> {
+    return this;
   }
 
   /**
@@ -52,16 +56,16 @@ export class UsersController {
   @ApiBody({ type: [CreateUserDto] })
   @Post('bulk')
   async createBulk(@Body(new ParseArrayPipe({ items: CreateUserDto })) dto: CreateUserDto[]): Promise<DataOutput<IUser[]>> {
-    return { message: 'Users created successfully', output: await this.userService.createMany(dto) };
+    return { message: 'Users created successfully', output: await this.service.createBatch(dto) };
   }
 
   /**
-   * Get users by ids - Single
-   * @param ids User ID integers
+   * Get users by ids - Batch
+   * @param ids User ID integer Array
    * @example GET /users/bulk?ids=1,2,3
    */
   @ApiOperation({
-    summary: 'Get Users by ids- Single',
+    summary: 'Get Users by ids- Batch',
     description: 'Get users by Ids. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
   })
   @ApiOkResponse({ status: 200, description: 'Success response', type: [User] })
@@ -70,122 +74,7 @@ export class UsersController {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Get('bulk')
   async getByIds(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]): Promise<DataOutput<User[]>> {
-    return { output: await this.userService.getByIds(ids) };
-  }
-
-  /**
-   * Get user by id - Single
-   * @param id User ID integer
-   * @example GET /users/1 where 1 is User ID integer
-   */
-  @ApiOperation({ summary: 'Get user by id - Single', description: 'Get user by Id. You have to provide an id in a url param' })
-  @ApiOkResponse({ status: 200, description: 'Success response', type: User })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
-  @Get(':id')
-  async getById(@Param('id') id: number): Promise<DataOutput<User | null>> {
-    return { output: await this.userService.getById(id) };
-  }
-
-  /**
-   * Get all users with query support
-   * @param query Optional query submition for filtering, pagining, sorting, etc.
-   * @example GET /users?s...
-   * // https://github.com/nestjsx/crud/wiki/Requests#query-params
-   * // TODO: make functionality for query
-   * // TODO: document @ApiQuery with CrudRequest types
-   */
-  @ApiOperation({ summary: 'Get all users with query support', description: 'Get all users with query request supported' })
-  @ApiOkResponse({ status: 200, description: 'Success response', type: [User] })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiQuery({ name: 'fields', required: false, type: 'string', example: 'field1,field2,...', description: 'get selected fields in GET result' })
-  @ApiQuery({ name: 'select', required: false, type: 'string', example: 'field1,field2,...', description: 'get selected fields in GET result' })
-  @ApiQuery({
-    name: 's',
-    required: false,
-    type: 'json',
-    example: '{"name": {"$or": {"$isnull": true, "$eq": "Superman"}}}',
-    description: 'search conditions ($and, $or with all possible variations)',
-  })
-  @ApiQuery({
-    name: 'filter',
-    required: false,
-    type: 'string',
-    example: 'name||$eq||batman',
-    description: 'filter GET result by AND type of condition',
-  })
-  @ApiQuery({
-    name: 'or',
-    required: false,
-    type: 'string',
-    example: 'name||$eq||batman&or=name||$eq||joker',
-    description: 'filter GET result by OR type of condition',
-  })
-  @ApiQuery({
-    name: 'join',
-    required: false,
-    type: 'string',
-    example: 'profile||firstName,email&join=notifications||content&join=tasks...',
-    description: 'receive joined relational resources in GET result (with all or selected fields)',
-  })
-  @ApiQuery({
-    name: 'sort',
-    required: false,
-    type: 'string',
-    example: 'name,ASC&sort=id,DESC',
-    description: 'sort GET result by some field in ASC | DESC order',
-  })
-  @ApiQuery({
-    name: 'per_page',
-    required: false,
-    type: 'number',
-    example: '10',
-    description: 'per_page, limit - limit the amount of received resources',
-  })
-  @ApiQuery({
-    name: 'limit',
-    required: false,
-    type: 'number',
-    example: '10',
-    description: 'per_page, limit - limit the amount of received resources',
-  })
-  @ApiQuery({
-    name: 'offset',
-    required: false,
-    type: 'number',
-    example: '10',
-    description: 'offset some amount of received resources. Limit the amount of received resources',
-  })
-  @ApiQuery({ name: 'page', required: false, type: 'number', example: '10', description: 'receive a portion of limited amount of resources' })
-  @ApiQuery({
-    name: 'cache',
-    required: false,
-    type: 'number',
-    example: '0',
-    description: 'reset cache (if was enabled) and receive resources directly from the DB',
-  })
-  @Get()
-  @UseInterceptors(CrudRequestInterceptor)
-  async getAll(@ParsedRequest() query: CrudRequest): Promise<DataOutput<User[]>> {
-    return { output: await this.userService.getMany(query) };
-  }
-
-  /**
-   * Update one - Single
-   * @param dto Update User Form
-   * @example PUT /users
-   */
-  @ApiOperation({ summary: 'Update user - Single', description: 'Update user by Id. You have to provide an id in the body' })
-  @ApiOkResponse({ status: 200, description: 'Success response' })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiBadRequestResponse({ status: 400, description: 'You will prompt with an array with the validation issues' })
-  @ApiBody({ required: true, type: UpdateUserDto })
-  @Put()
-  async updateOne(@Body() dto: UpdateUserDto) {
-    return { output: await this.userService.update(dto) };
+    return { output: await this.service.getByIds(ids) };
   }
 
   /**
@@ -201,7 +90,7 @@ export class UsersController {
   @ApiBody({ required: true, type: [UpdateUserDto] })
   @Put('bulk')
   async updateMany(@Body(new ParseArrayPipe({ items: UpdateUserDto })) dtos: UpdateUserDto[]) {
-    return { output: await this.userService.updateMany(dtos) };
+    return { output: await this.service.updateMany(dtos) };
   }
 
   /**
@@ -220,25 +109,7 @@ export class UsersController {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Delete('bulk')
   async deleteMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.userService.softDeleteMany(ids) };
-  }
-
-  /**
-   * Softdelete user (SOFT DELETION)
-   * @param ids User ID integer
-   * @example DELETE /users
-   */
-  @ApiOperation({
-    summary: 'Softdelete user - Batch',
-    description: '(SOFT DELETION) Delete user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
-  })
-  @ApiOkResponse({ status: 200, description: 'Success response' })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
-  @Delete(':id')
-  async delete(@Param('id') id: number) {
-    return { output: await this.userService.softDelete(id) };
+    return { output: await this.service.softDeleteMany(ids) };
   }
 
   /**
@@ -256,24 +127,7 @@ export class UsersController {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Delete('bulk/hard')
   async hardDeleteMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.userService.deleteMany(ids) };
-  }
-
-  /**
-   * Delete one (ATENTTION: PERMANENT DELETION)
-   * @param id User ID integer
-   */
-  @ApiOperation({
-    summary: 'Hard delete  user - Batch',
-    description: '(HARD DELETION) Delete user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
-  })
-  @ApiOkResponse({ status: 200, description: 'Success response' })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
-  @Delete(':id/hard')
-  async hardDelete(@Param('id') id: number) {
-    return { output: await this.userService.delete(id) };
+    return { output: await this.service.deleteMany(ids) };
   }
 
   /**
@@ -291,25 +145,7 @@ export class UsersController {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Patch('bulk/restore')
   async restoreMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.userService.restoreMany(ids) };
-  }
-
-  /**
-   * Restore softdeleted user
-   * @param ids User ID integer
-   * @example DELETE /users/1/restore
-   */
-  @ApiOperation({
-    summary: 'Restore user - Batch',
-    description: 'Restore user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
-  })
-  @ApiOkResponse({ status: 200, description: 'Success response' })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
-  @Patch(':id/restore')
-  async restore(@Param('id') id: number) {
-    return { output: await this.userService.restore(id) };
+    return { output: await this.service.restoreMany(ids) };
   }
 
   /**
@@ -327,25 +163,7 @@ export class UsersController {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Patch('bulk/disable')
   async disableMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.userService.disableMany(ids) };
-  }
-
-  /**
-   * Disable user
-   * @param ids User ID integer
-   * @example DELETE /users/1/disable
-   */
-  @ApiOperation({
-    summary: 'Disable user - single',
-    description: 'Disable user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
-  })
-  @ApiOkResponse({ status: 200, description: 'Success response' })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
-  @Patch(':id/disable')
-  async disable(@Param('id') id: number) {
-    return { output: await this.userService.disable(id) };
+    return { output: await this.service.disableMany(ids) };
   }
 
   /**
@@ -363,7 +181,160 @@ export class UsersController {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Patch('bulk/enable')
   async enableMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.userService.enableMany(ids) };
+    return { output: await this.service.enableMany(ids) };
+  }
+
+  /**
+   * Get users by ids - Batch
+   * @param ids User ID integer Array
+   * @example GET /users/bulk?ids=1,2,3
+   */
+  @ApiOperation({
+    summary: 'Get Users by ids- Batch',
+    description: 'Get Deleted users by Ids. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
+  })
+  @ApiOkResponse({ status: 200, description: 'Success response', type: User })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiQuery({ name: 'ids', required: false, type: 'number', example: '1,2,3', explode: false })
+  @Get('bulk/deleted')
+  async getSoftdeletedUsersByIds(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids?: number[]) {
+    return { output: await this.service.getDeletedUsers(ids) };
+  }
+
+  /**
+   * Create User  - Single
+   * @param dto User Form
+   * @example POST /users
+   */
+  @ApiOperation({ summary: 'Create User  - Single', description: 'Register an user, this can be public or privated.' })
+  @ApiCreatedResponse({ status: 201, description: 'User created successfully', type: User })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiBadRequestResponse({ status: 400, description: 'You will prompt with the validation issues' })
+  @ApiBody({ type: CreateUserDto })
+  @Post()
+  async createOne(@Body() dto: CreateUserDto): Promise<DataOutput<User>> {
+    return { message: 'User created successfully', output: await this.service.create(dto) };
+  }
+
+  /**
+   * Get deleted users - Batch
+   * @example GET /users/bulk?ids=1,2,3
+   */
+  @ApiOperation({
+    summary: 'Get Deleted Users by ids- Batch',
+    description: 'Get users by Ids. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
+  })
+  @ApiOkResponse({ status: 200, description: 'Success response', type: User })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiQuery({ name: 'ids', required: false, type: 'number', example: '1,2,3', explode: false })
+  @Get('deleted')
+  async getSoftdeletedUsers() {
+    return { output: await this.service.getDeletedUsers() };
+  }
+
+  /**
+   * Get user by id - Single
+   * @param id User ID integer
+   * @example GET /users/1 where 1 is User ID integer
+   */
+  @ApiOperation({ summary: 'Get user by id - Single', description: 'Get user by Id. You have to provide an id in a url param' })
+  @ApiOkResponse({ status: 200, description: 'Success response', type: User })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
+  @Get(':id')
+  async getById(@Param('id') id: number): Promise<DataOutput<User | null>> {
+    return { output: await this.service.getById(id) };
+  }
+
+  /**
+   * Update one - Single
+   * @param dto Update User Form
+   * @example PUT /users
+   */
+  @ApiOperation({ summary: 'Update user - Single', description: 'Update user by Id. You have to provide an id in the body' })
+  @ApiOkResponse({ status: 200, description: 'Success response' })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiBadRequestResponse({ status: 400, description: 'You will prompt with an array with the validation issues' })
+  @ApiBody({ required: true, type: UpdateUserDto })
+  @Put()
+  async updateOne(@Body() dto: UpdateUserDto) {
+    return { output: await this.service.update(dto) };
+  }
+
+  /**
+   * Softdelete user (SOFT DELETION)
+   * @param ids User ID integer
+   * @example DELETE /users
+   */
+  @ApiOperation({
+    summary: 'Softdelete user - Batch',
+    description: '(SOFT DELETION) Delete user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
+  })
+  @ApiOkResponse({ status: 200, description: 'Success response' })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
+  @Delete(':id')
+  async delete(@Param('id') id: number) {
+    return { output: await this.service.softDelete(id) };
+  }
+
+  /**
+   * Delete one (ATENTTION: PERMANENT DELETION)
+   * @param id User ID integer
+   */
+  @ApiOperation({
+    summary: 'Hard delete  user - Batch',
+    description: '(HARD DELETION) Delete user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
+  })
+  @ApiOkResponse({ status: 200, description: 'Success response' })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
+  @Delete(':id/hard')
+  async hardDelete(@Param('id') id: number) {
+    return { output: await this.service.delete(id) };
+  }
+
+  /**
+   * Restore softdeleted user
+   * @param ids User ID integer
+   * @example DELETE /users/1/restore
+   */
+  @ApiOperation({
+    summary: 'Restore user - Batch',
+    description: 'Restore user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
+  })
+  @ApiOkResponse({ status: 200, description: 'Success response' })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
+  @Patch(':id/restore')
+  async restore(@Param('id') id: number) {
+    return { output: await this.service.restore(id) };
+  }
+
+  /**
+   * Disable user
+   * @param ids User ID integer
+   * @example DELETE /users/1/disable
+   */
+  @ApiOperation({
+    summary: 'Disable user - single',
+    description: 'Disable user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
+  })
+  @ApiOkResponse({ status: 200, description: 'Success response' })
+  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
+  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
+  @Patch(':id/disable')
+  async disable(@Param('id') id: number) {
+    return { output: await this.service.disable(id) };
   }
 
   /**
@@ -381,6 +352,6 @@ export class UsersController {
   @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
   @Patch(':id/enable')
   async enable(@Param('id') id: number) {
-    return { output: await this.userService.enable(id) };
+    return { output: await this.service.enable(id) };
   }
 }

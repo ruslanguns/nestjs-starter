@@ -1,8 +1,37 @@
-import { IsString, IsEmail, IsNotEmpty, Matches, MinLength, MaxLength, IsOptional, ValidateNested, IsArray } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, Matches, MinLength, MaxLength, IsOptional, ValidateNested, IsArray, IsDate, IsEnum } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUsernameAlreadyExist, IsEmailAlreadyExist } from '../../../common/validators';
 import { PATTERN_VALID_USERNAME } from '../../../config/config.constants';
 import { Type } from 'class-transformer';
+import { GenderEnum } from 'src/common/enums';
+
+export class ContactInfoDto {
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  name?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  middleName?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  lastName?: string;
+
+  @ApiProperty()
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  birthday?: Date;
+
+  @ApiProperty()
+  @IsEnum(GenderEnum)
+  @IsOptional()
+  gender?: GenderEnum;
+}
 
 export class UserMetadataDto {
   @ApiProperty({ description: 'Not necessary on create but mandatory in update metadata.' })
@@ -63,4 +92,10 @@ export class CreateUserDto {
   @Type(() => UserMetadataDto)
   @IsOptional()
   metadata: UserMetadataDto[];
+
+  @ApiProperty({ description: 'Additional user information', type: ContactInfoDto })
+  @ValidateNested({ each: true })
+  @Type(() => ContactInfoDto)
+  @IsOptional()
+  contactInfo: ContactInfoDto;
 }

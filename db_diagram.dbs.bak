@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="NestJS Starter" id="Project_34e4444" database="PostgreSQL" >
+	<schema name="nestjs starter" >
+		<table name="user_metadata" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="key" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="value" type="text" jt="12" />
+			<column name="deleted_at" type="date" jt="91" >
+				<defo>null</defo>
+			</column>
+			<index name="pk_user_metadata_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_user_metadata_users" to_schema="nestjs starter" to_table="users" delete_action="cascade" update_action="cascade" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="users" spec="" >
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="email" type="varchar" length="255" jt="12" />
+			<column name="username" type="varchar" length="20" jt="12" />
+			<column name="password" type="varchar" length="500" jt="12" />
+			<column name="enabled" type="bool" jt="-7" >
+				<defo>true</defo>
+			</column>
+			<column name="created_at" type="timestamp" jt="93" >
+				<defo>current_timestamp</defo>
+			</column>
+			<column name="updated_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
+			<column name="deleted_at" type="date" jt="91" >
+				<defo>null</defo>
+			</column>
+			<index name="pk_users_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout_58710df" joined_routing="y" show_relation="columns" >
+		<entity schema="nestjs starter" name="user_metadata" color="C1D8EE" x="256" y="64" />
+		<entity schema="nestjs starter" name="users" color="C1D8EE" x="48" y="48" />
+		<query id="Query_c64b25" name="fk_user_metadata_users" confirmed="y" >
+			<query_table schema="nestjs starter" name="users" alias="u" x="48" y="48" >
+				<column name="id" />
+				<column name="email" />
+				<column name="username" />
+				<column name="password" />
+				<column name="enabled" />
+				<column name="created_at" />
+				<column name="updated_at" />
+				<column name="deleted_at" />
+				<query_table schema="nestjs starter" name="user_metadata" alias="um" x="192" y="48" fk="fk_user_metadata_users" type="Inner Join" />
+			</query_table>
+		</query>
+	</layout>
+</project>

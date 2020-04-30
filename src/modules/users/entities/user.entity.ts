@@ -1,13 +1,37 @@
-import { Column, Entity, DeleteDateColumn, Index, BeforeInsert, BeforeUpdate, ManyToMany, JoinTable, JoinColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  DeleteDateColumn,
+  Index,
+  BeforeInsert,
+  BeforeUpdate,
+  ManyToMany,
+  JoinTable,
+  JoinColumn,
+  OneToMany,
+  IsNull,
+  Not,
+  OneToOne,
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { hash } from 'bcryptjs';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { EntityBaseWithDate, EntityBase, EmptyEntity } from '../../../common/abstracts';
 import { UserMetadata } from './user-metadata.entity';
+import { ContactInfo } from './contact-info.entity';
 
 @Entity('user')
 export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
+  static scope = {
+    default: {
+      deletedAt: IsNull(),
+    },
+    myScope: {
+      deletedAt: Not(IsNull()),
+    },
+  };
+
   @ApiProperty()
   @Index({ unique: true })
   @Column({ type: 'varchar', length: 255, nullable: false })
@@ -19,7 +43,7 @@ export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
   username: string;
 
   @ApiProperty()
-  @Exclude({ toPlainOnly: true })
+  @Exclude()
   @Column({ type: 'varchar', length: 500, nullable: true, select: false })
   password: string;
 
@@ -32,9 +56,12 @@ export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
     this.password = await hash(this.password, 10);
   }
 
-  @OneToMany((type) => UserMetadata, (meta) => meta.user, { eager: true, cascade: true })
-  @JoinColumn()
+  @OneToMany((type) => UserMetadata, (meta) => meta.user, { cascade: true, eager: true })
+  @JoinTable()
   metadata: UserMetadata[];
+
+  @OneToOne((type) => ContactInfo, (info) => info.userId, { cascade: true, eager: true })
+  contactInfo: ContactInfo;
 
   @ApiProperty()
   @Column({ type: 'bool', default: true, select: false })

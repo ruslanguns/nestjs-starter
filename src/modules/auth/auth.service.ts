@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, BadRequestException, ForbiddenException 
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
 
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../users/services';
 import { PATTERN_VALID_EMAIL } from '../../config/config.constants';
 import { User } from '../users/entities';
 

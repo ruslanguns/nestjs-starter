@@ -1,46 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="NestJS Starter" id="Project_34e4444" database="PostgreSQL" >
 	<schema name="nestjs starter" >
-		<table name="term" >
+		<table name="contact_address" >
 			<column name="id" type="bigint" jt="-5" mandatory="y" />
-			<column name="name" type="varchar" length="255" jt="12" />
-			<column name="slug" type="varchar" length="255" jt="12" />
-			<column name="group" type="integer" length="255" jt="4" >
-				<defo>0</defo>
+			<column name="contact_info_id" type="bigint" jt="-5" mandatory="y" >
+				<comment><![CDATA[ManyToOne Relation to contact_info_id
+OneToOne Relation from contact_info_id]]></comment>
 			</column>
-			<index name="pk_term_id_0" unique="PRIMARY_KEY" >
-				<column name="id" />
-			</index>
-		</table>
-		<table name="term_metadata" >
-			<column name="id" type="bigint" jt="-5" mandatory="y" />
-			<column name="term_id" type="bigint" jt="-5" />
-			<column name="key" type="varchar" length="255" jt="12" mandatory="y" />
-			<column name="value" type="text" jt="12" />
-			<index name="pk_term_id" unique="PRIMARY_KEY" >
-				<column name="id" />
-			</index>
-			<fk name="fk_term_metadata_term" to_schema="nestjs starter" to_table="term" >
-				<fk_column name="term_id" pk="id" />
-			</fk>
-		</table>
-		<table name="term_taxonomy" >
-			<column name="id" type="bigint" jt="-5" mandatory="y" />
-			<column name="taxonomy" type="varchar" length="32" jt="12" />
-			<column name="term_id" type="integer" jt="4" mandatory="y" />
 			<column name="description" type="text" jt="12" />
-			<column name="parent" type="bigint" jt="-5" />
-			<column name="count" type="integer" jt="4" >
-				<defo>0</defo>
+			<column name="line_1" type="varchar" length="254" jt="12" />
+			<column name="line_2" type="varchar" length="254" jt="12" />
+			<column name="city" type="varchar" length="254" jt="12" />
+			<column name="state" type="varchar" length="254" jt="12" />
+			<column name="zip" type="varchar" length="50" jt="12" />
+			<column name="country" type="varchar" length="254" jt="12" />
+			<column name="created_at" type="date" jt="91" >
+				<defo>current_date</defo>
 			</column>
-			<index name="pk_term_taxonomy_id" unique="PRIMARY_KEY" >
+			<column name="updated_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
+			<column name="deleted_at" type="date" jt="91" >
+				<defo>null</defo>
+			</column>
+			<index name="pk_contact_address_id" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
-			<fk name="fk_term_taxonomy_term" to_schema="nestjs starter" to_table="term" delete_action="cascade" update_action="cascade" >
-				<fk_column name="term_id" pk="id" />
+			<fk name="fk_contact_address" to_schema="nestjs starter" to_table="contact_info" >
+				<fk_column name="contact_info_id" pk="id" />
 			</fk>
-			<fk name="fk_term_taxonomy_user_metadata" to_schema="nestjs starter" to_table="term_taxonomy" >
-				<fk_column name="parent" pk="id" />
+		</table>
+		<table name="contact_info" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="user_id" type="bigint" jt="-5" mandatory="y" >
+				<comment><![CDATA[OneToOne Relation between users and contact_info]]></comment>
+			</column>
+			<column name="name" type="varchar" length="70" jt="12" />
+			<column name="middle_name" type="varchar" length="100" jt="12" />
+			<column name="lastname" type="varchar" length="100" jt="12" />
+			<column name="birthday" type="date" jt="91" />
+			<column name="gender" type="varchar" length="100" jt="12" >
+				<comment><![CDATA[enum ("male", "female" ,"undefined")]]></comment>
+			</column>
+			<column name="created_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
+			<column name="updated_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
+			<column name="deleted_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
+			<index name="pk_contact_info_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_contact_info_users" to_schema="nestjs starter" to_table="users" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
+		<table name="contact_phone" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="contact_info_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="description" type="text" jt="12" />
+			<column name="phone" type="varchar" length="64" jt="12" />
+			<column name="sms" type="bool" jt="-7" >
+				<defo>false</defo>
+			</column>
+			<index name="pk_tbl_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_contact_phone_contact_info" to_schema="nestjs starter" to_table="contact_info" >
+				<fk_column name="contact_info_id" pk="id" />
 			</fk>
 		</table>
 		<table name="user_metadata" >
@@ -48,6 +78,9 @@
 			<column name="user_id" type="integer" jt="4" mandatory="y" />
 			<column name="key" type="varchar" length="255" jt="12" mandatory="y" />
 			<column name="value" type="text" jt="12" />
+			<column name="deleted_at" type="date" jt="91" >
+				<defo>null</defo>
+			</column>
 			<index name="pk_user_metadata_id" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
@@ -55,24 +88,8 @@
 				<fk_column name="user_id" pk="id" />
 			</fk>
 		</table>
-		<table name="user_taxonomy" >
-			<column name="user_id" type="integer" jt="4" mandatory="y" />
-			<column name="taxonomy_id" type="integer" jt="4" mandatory="y" />
-			<column name="order" type="integer" jt="4" >
-				<defo>0</defo>
-			</column>
-			<index name="pk_user_taxonomy_user_id" unique="PRIMARY_KEY" >
-				<column name="user_id" />
-			</index>
-			<fk name="fk_user_taxonomy_users" to_schema="nestjs starter" to_table="users" >
-				<fk_column name="user_id" pk="id" />
-			</fk>
-			<fk name="fk_user_taxonomy_term_taxonomy" to_schema="nestjs starter" to_table="term_taxonomy" >
-				<fk_column name="taxonomy_id" pk="id" />
-			</fk>
-		</table>
 		<table name="users" spec="" >
-			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
 			<column name="email" type="varchar" length="255" jt="12" />
 			<column name="username" type="varchar" length="20" jt="12" />
 			<column name="password" type="varchar" length="500" jt="12" />
@@ -94,12 +111,19 @@
 		</table>
 	</schema>
 	<layout name="Default Layout" id="Layout_58710df" joined_routing="y" show_relation="columns" >
-		<entity schema="nestjs starter" name="term" color="C1D8EE" x="208" y="464" />
-		<entity schema="nestjs starter" name="term_metadata" color="C1D8EE" x="48" y="352" />
-		<entity schema="nestjs starter" name="term_taxonomy" color="C1D8EE" x="432" y="368" />
-		<entity schema="nestjs starter" name="user_metadata" color="C1D8EE" x="608" y="64" />
-		<entity schema="nestjs starter" name="user_taxonomy" color="C1D8EE" x="48" y="128" />
-		<entity schema="nestjs starter" name="users" color="C1D8EE" x="352" y="48" />
+		<entity schema="nestjs starter" name="contact_address" color="C1D8EE" x="544" y="80" />
+		<entity schema="nestjs starter" name="contact_info" color="C1D8EE" x="304" y="192" />
+		<entity schema="nestjs starter" name="contact_phone" color="C1D8EE" x="544" y="368" />
+		<entity schema="nestjs starter" name="user_metadata" color="000000" x="64" y="384" />
+		<entity schema="nestjs starter" name="users" color="008000" x="48" y="96" />
+		<group name="User Management" color="804D80" >
+			<comment><![CDATA[Login information and contact information]]></comment>
+			<entity schema="nestjs starter" name="contact_info" />
+			<entity schema="nestjs starter" name="user_metadata" />
+			<entity schema="nestjs starter" name="users" />
+			<entity schema="nestjs starter" name="contact_address" />
+			<entity schema="nestjs starter" name="contact_phone" />
+		</group>
 		<query id="Query_c64b25" name="fk_user_metadata_users" confirmed="y" >
 			<query_table schema="nestjs starter" name="users" alias="u" x="48" y="48" >
 				<column name="id" />

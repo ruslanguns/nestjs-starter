@@ -1,27 +1,42 @@
 import { Injectable, NotFoundException, BadGatewayException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CrudRequest } from '@nestjsx/crud';
+import { CrudRequest, GetManyDefaultResponse } from '@nestjsx/crud';
+import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import { Repository } from 'typeorm';
 
-import { User, UserMetadata } from './entities';
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { User, UserMetadata } from '../entities';
+import { CreateUserDto, UpdateUserDto } from '../dto';
 
 @Injectable()
-export class UsersService {
+export class UsersService extends TypeOrmCrudService<User> {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     @InjectRepository(UserMetadata)
     private readonly userMetadataRepository: Repository<UserMetadata>,
-  ) {}
+  ) {
+    super(userRepository);
+  }
+
+  /**
+   * Get
+   * @param ids OPTIONAL array of number of user ids
+   */
+  async getDeletedUsers(ids?: number[]) {
+    if (!!ids && ids.length) {
+      return await this.userRepository.findByIds(ids, { withDeleted: true });
+    }
+
+    return await this.userRepository.find({ withDeleted: true });
+  }
 
   /**
    * Get User Metadata by User Id
    * @param id User ID
    */
-  async getUserMeta(id: number) {
-    const user = await this.userRepository.findOne(id);
-    return await this.userMetadataRepository.find({ user });
+  async getUserMeta() {
+    // const user = await this.userRepository.findOne(id);
+    return await this.userMetadataRepository.find();
   }
 
   /**
@@ -39,7 +54,7 @@ export class UsersService {
    * Create users in batch
    * @param dto Array of CreateUserDto
    */
-  async createMany(dto: CreateUserDto[]): Promise<User[]> {
+  async createBatch(dto: CreateUserDto[]): Promise<User[]> {
     const users = this.userRepository.create(dto);
     const result = await this.userRepository.save(users).catch((err) => {
       throw new BadGatewayException('Something happened', err);
@@ -93,10 +108,11 @@ export class UsersService {
    * Get all users
    * @param query Query Params [CrudRequest] https://github.com/nestjsx/crud/wiki/Requests#query-params
    */
-  async getMany(query?: CrudRequest): Promise<User[]> {
-    return await this.userRepository.find().catch((err) => {
-      throw new BadGatewayException('Something happened', err);
-    });
+  async getBatch(query?: CrudRequest): Promise<GetManyDefaultResponse<User> | User[]> {
+    // return await this.userRepository.find().catch((err) => {
+    //   throw new BadGatewayException('Something happened', err);
+    // });
+    return await this.getMany(query);
   }
 
   /**
@@ -151,7 +167,8 @@ export class UsersService {
    * @param id User id
    */
   async softDelete(id: number) {
-    return await this.userRepository.softDelete(id).catch((err) => {
+    const user = await this.userRepository.findOne(id);
+    return await this.userRepository.softRemove(user).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
@@ -161,9 +178,17 @@ export class UsersService {
    * @param ids Array of user ids
    */
   async softDeleteMany(ids: number[]) {
-    return await this.userRepository.softDelete(ids).catch((err) => {
-      throw new BadGatewayException('Something happened', err);
-    });
+    const usersRemoved: User[] = [];
+
+    for (let i = 0; i < ids.length; i++) {
+      const user = await this.userRepository.findOne(ids[i]);
+      if (!!user) {
+        const result = await this.userRepository.softRemove(user);
+        usersRemoved.push(result);
+      }
+    }
+
+    return usersRemoved;
   }
 
   /**
@@ -191,7 +216,8 @@ export class UsersService {
    * @param id User id
    */
   async restore(id: number) {
-    return await this.userRepository.restore(id).catch((err) => {
+    const user = await this.userRepository.findOne({ withDeleted: true });
+    return await this.userRepository.recover(user).catch((err) => {
       throw new BadGatewayException('Something happened', err);
     });
   }
@@ -201,9 +227,15 @@ export class UsersService {
    * @param ids Array of ids
    */
   async restoreMany(ids: number[]) {
-    return await this.userRepository.restore(ids).catch((err) => {
-      throw new BadGatewayException('Something happened', err);
-    });
+    const usersRecovered: User[] = [];
+    for (let i = 0; i < ids.length; i++) {
+      const user = await this.userRepository.findOne(ids[i], { withDeleted: true });
+      if (!!user) {
+        const result = await this.userRepository.recover(user);
+        usersRecovered.push(result);
+      }
+    }
+    return usersRecovered;
   }
 
   /**
