@@ -9,8 +9,8 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> 
     return next.handle().pipe(
       map((data) => ({
         statusCode: ctx.switchToHttp().getResponse().statusCode,
-        message: data.message || 'Success response',
-        data: !!data && !!data.output ? data.output : data.output === undefined ? data : null,
+        message: data?.message || 'Success response',
+        data: data?.output ?? data ?? null,
       })),
     );
   }
