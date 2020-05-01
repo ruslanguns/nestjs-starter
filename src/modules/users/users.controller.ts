@@ -73,8 +73,8 @@ export class UsersController implements CrudController<User> {
   @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Get('bulk')
-  async getByIds(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]): Promise<DataOutput<User[]>> {
-    return { output: await this.service.getByIds(ids) };
+  async getByIds(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
+    return await this.service.getByIds(ids);
   }
 
   /**
@@ -90,7 +90,7 @@ export class UsersController implements CrudController<User> {
   @ApiBody({ required: true, type: [UpdateUserDto] })
   @Put('bulk')
   async updateMany(@Body(new ParseArrayPipe({ items: UpdateUserDto })) dtos: UpdateUserDto[]) {
-    return { output: await this.service.updateMany(dtos) };
+    return await this.service.updateMany(dtos);
   }
 
   /**
@@ -109,7 +109,7 @@ export class UsersController implements CrudController<User> {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Delete('bulk')
   async deleteMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.service.softDeleteMany(ids) };
+    return await this.service.softDeleteMany(ids);
   }
 
   /**
@@ -127,7 +127,7 @@ export class UsersController implements CrudController<User> {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Delete('bulk/hard')
   async hardDeleteMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.service.deleteMany(ids) };
+    return await this.service.deleteMany(ids);
   }
 
   /**
@@ -145,7 +145,7 @@ export class UsersController implements CrudController<User> {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Patch('bulk/restore')
   async restoreMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.service.restoreMany(ids) };
+    return await this.service.restoreMany(ids);
   }
 
   /**
@@ -163,7 +163,7 @@ export class UsersController implements CrudController<User> {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Patch('bulk/disable')
   async disableMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.service.disableMany(ids) };
+    return await this.service.disableMany(ids);
   }
 
   /**
@@ -181,7 +181,7 @@ export class UsersController implements CrudController<User> {
   @ApiQuery({ name: 'ids', required: true, type: 'string', example: '1,2,3' })
   @Patch('bulk/enable')
   async enableMany(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids: number[]) {
-    return { output: await this.service.enableMany(ids) };
+    return await this.service.enableMany(ids);
   }
 
   /**
@@ -199,7 +199,7 @@ export class UsersController implements CrudController<User> {
   @ApiQuery({ name: 'ids', required: false, type: 'number', example: '1,2,3', explode: false })
   @Get('bulk/deleted')
   async getSoftdeletedUsersByIds(@Query('ids', new ParseArrayPipe({ items: Number, separator: ',' })) ids?: number[]) {
-    return { output: await this.service.getDeletedUsers(ids) };
+    return await this.service.getDeletedUsers(ids);
   }
 
   /**
@@ -232,7 +232,7 @@ export class UsersController implements CrudController<User> {
   @ApiQuery({ name: 'ids', required: false, type: 'number', example: '1,2,3', explode: false })
   @Get('deleted')
   async getSoftdeletedUsers() {
-    return { output: await this.service.getDeletedUsers() };
+    return await this.service.getDeletedUsers();
   }
 
   /**
@@ -246,8 +246,8 @@ export class UsersController implements CrudController<User> {
   @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
   @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
   @Get(':id')
-  async getById(@Param('id') id: number): Promise<DataOutput<User | null>> {
-    return { output: await this.service.getById(id) };
+  async getById(@Param('id') id: number) {
+    return await this.service.getById(id);
   }
 
   /**
@@ -263,7 +263,7 @@ export class UsersController implements CrudController<User> {
   @ApiBody({ required: true, type: UpdateUserDto })
   @Put()
   async updateOne(@Body() dto: UpdateUserDto) {
-    return { output: await this.service.update(dto) };
+    return await this.service.update(dto);
   }
 
   /**
@@ -281,7 +281,7 @@ export class UsersController implements CrudController<User> {
   @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
   @Delete(':id')
   async delete(@Param('id') id: number) {
-    return { output: await this.service.softDelete(id) };
+    return await this.service.softDelete(id);
   }
 
   /**
@@ -298,7 +298,7 @@ export class UsersController implements CrudController<User> {
   @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
   @Delete(':id/hard')
   async hardDelete(@Param('id') id: number) {
-    return { output: await this.service.delete(id) };
+    return await this.service.delete(id);
   }
 
   /**
@@ -316,7 +316,7 @@ export class UsersController implements CrudController<User> {
   @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
   @Patch(':id/restore')
   async restore(@Param('id') id: number) {
-    return { output: await this.service.restore(id) };
+    return await this.service.restore(id);
   }
 
   /**
@@ -334,7 +334,7 @@ export class UsersController implements CrudController<User> {
   @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
   @Patch(':id/disable')
   async disable(@Param('id') id: number) {
-    return { output: await this.service.disable(id) };
+    return await this.service.disable(id);
   }
 
   /**
@@ -352,6 +352,6 @@ export class UsersController implements CrudController<User> {
   @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
   @Patch(':id/enable')
   async enable(@Param('id') id: number) {
-    return { output: await this.service.enable(id) };
+    return await this.service.enable(id);
   }
 }
