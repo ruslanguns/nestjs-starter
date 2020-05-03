@@ -1,3 +1,16 @@
+# [0.4.0](https://github.com/ruslanguns/nestjs-starter/compare/0.3.0...0.4.0) (2020-05-03)
+
+### Bug Fixes
+
+- **docker:** fixed volumes at the deploy script ([71aabef](https://github.com/ruslanguns/nestjs-starter/commit/71aabef1b533d613be4580c277e3dd6506044a9c))
+- **interceptor:** cannot find output of null ([b0e0878](https://github.com/ruslanguns/nestjs-starter/commit/b0e087897e56801752bce50ca6dda205c8172b84))
+- **transform:** data output fixed ([ca7ff56](https://github.com/ruslanguns/nestjs-starter/commit/ca7ff56c42517ced50f0847e3fe88439276a0908))
+
+### Features
+
+- **users:** crud for contact info,meta,address,phone completed ([6215bee](https://github.com/ruslanguns/nestjs-starter/commit/6215bee4183d06fa226d0ef2640b57d7df503684))
+- in progress architecture for user meta, address, phone and info ([c3073db](https://github.com/ruslanguns/nestjs-starter/commit/c3073db752d1f2d2106df691456c7ec514f650eb))
+
 # [0.3.0](https://github.com/ruslanguns/nestjs-starter/compare/0.2.1...0.3.0) (2020-04-27)
 
 ### Features
