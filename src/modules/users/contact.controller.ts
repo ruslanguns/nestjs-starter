@@ -1,67 +1,124 @@
-import { Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
-import { ContactInfoService } from './services/contact-info.service';
+import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import {
+  ContactInfoDto,
+  CreateContactAddressDto,
+  CreateContactPhoneDto,
+  UpdateContactAddressDto,
+  UpdateContactPhoneDto,
+  CreateUserMetadataDto,
+  UpdateUserMetadataDto,
+} from './dto';
+
+import { ContactService } from './services/contact-info.service';
 
 @Controller('users')
 export class ContactController {
-  constructor(private readonly contactInfoService: ContactInfoService) {}
+  constructor(private readonly contactService: ContactService) {}
 
   // Contact CRUD
+  @ApiTags('User information')
   @Get(':id/info')
   async getInfo(@Param('id') id: number) {
-    return { output: await this.contactInfoService.getInfo(id) };
+    return await this.contactService.getInfo(id);
   }
 
-  @Post(':id/info')
-  async createInfo() {}
-
+  @ApiTags('User information')
   @Put(':id/info')
-  async updateInfo() {}
+  async updateInfo(@Param('id') id: number, @Body() dto: ContactInfoDto) {
+    return await this.contactService.updateInfo(id, dto);
+  }
 
   // Address CRUD
+  @ApiTags('Users Addresses')
   @Post(':id/address')
-  async createAddress() {}
+  async createAddress(@Param('id') id: number, @Body() dto: CreateContactAddressDto) {
+    return await this.contactService.createAddress(id, dto);
+  }
 
+  @ApiTags('Users Addresses')
   @Get(':id/address')
-  async getAddresses() {}
+  async getAddresses(@Param('id') id: number) {
+    return await this.contactService.getAddresses(id);
+  }
 
-  @Get(':id/address/:address')
-  async getAddress() {}
+  @ApiTags('Users Addresses')
+  @Get('address/:address')
+  async getAddress(@Param('address') address: number) {
+    return await this.contactService.getAddressById(address);
+  }
 
-  @Put(':id/address/:address')
-  async updateAddress() {}
+  @ApiTags('Users Addresses')
+  @Put('address/:address')
+  async updateAddress(@Param('address') address: number, @Body() dto: UpdateContactAddressDto) {
+    return await this.contactService.updateAddress(address, dto);
+  }
 
-  @Delete(':id/address/:address')
-  async deleteAddress() {}
+  @ApiTags('Users Addresses')
+  @Delete('address/:address')
+  async deleteAddress(@Param('address') address: number) {
+    return await this.contactService.deleteAddress(address);
+  }
 
   // Phone CRUD
+  @ApiTags('Users Phones')
   @Post(':id/phone')
-  async createPhone() {}
+  async createPhone(@Param('id') id: number, @Body() dto: CreateContactPhoneDto) {
+    return await this.contactService.createPhone(id, dto);
+  }
 
+  @ApiTags('Users Phones')
   @Get(':id/phone')
-  async getPhones() {}
+  async getPhones(@Param('id') id: number) {
+    return await this.contactService.getPhones(id);
+  }
 
-  @Get(':id/phone/:phone')
-  async getPhone() {}
+  @ApiTags('Users Phones')
+  @Get('phone/:phone')
+  async getPhone(@Param('phone') phone: number) {
+    return await this.contactService.getPhoneById(phone);
+  }
 
-  @Put(':id/phone/:phone')
-  async updatePhone() {}
+  @ApiTags('Users Phones')
+  @Put('phone/:phone')
+  async updatePhone(@Param('phone') phone: number, @Body() dto: UpdateContactPhoneDto) {
+    return await this.contactService.updatePhone(phone, dto);
+  }
 
-  @Delete(':id/phone/:phone')
-  async deletePhone() {}
+  @ApiTags('Users Phones')
+  @Delete('phone/:phone')
+  async deletePhone(@Param('phone') phone: number) {
+    return await this.contactService.deletePhone(phone);
+  }
 
   // Metadata CRUD
+  @ApiTags('Users metadata')
   @Post(':id/meta')
-  async createMetadata() {}
+  async createMetadata(@Param('id') id: number, @Body() dto: CreateUserMetadataDto) {
+    return await this.contactService.createUserMetadataPhone(id, dto);
+  }
 
+  @ApiTags('Users metadata')
   @Get(':id/meta')
-  async getMetadatas() {}
+  async getMetadatas(@Param('id') id: number) {
+    return await this.contactService.getUserMetadata(id);
+  }
 
-  @Get(':id/meta/:meta')
-  async getMetadata() {}
+  @ApiTags('Users metadata')
+  @Get('meta/:meta')
+  async getMetadata(@Param('meta') metadata: number) {
+    return await this.contactService.getUserMetadataById(metadata);
+  }
 
-  @Put(':id/meta/:meta')
-  async updateMetadata() {}
+  @ApiTags('Users metadata')
+  @Put('meta/:meta')
+  async updateMetadata(@Param('meta') metadata: number, @Body() dto: UpdateUserMetadataDto) {
+    return await this.contactService.updateUserMetadata(metadata, dto);
+  }
 
-  @Delete(':id/meta/:meta')
-  async deleteMetadata() {}
+  @ApiTags('Users metadata')
+  @Delete('meta/:meta')
+  async deleteMetadata(@Param('meta') metadata: number) {
+    return await this.contactService.deleteUserMetadata(metadata);
+  }
 }

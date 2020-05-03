@@ -44,7 +44,7 @@ export class UsersService extends TypeOrmCrudService<User> {
    * @param dto CreateUserDto
    */
   async create(dto: CreateUserDto): Promise<User> {
-    const user = await this.userRepository.create(dto);
+    const user = this.userRepository.create(dto);
     const result = await this.userRepository.save(user);
     delete result.password;
     return result;
@@ -86,7 +86,7 @@ export class UsersService extends TypeOrmCrudService<User> {
    * Get user by id
    * @param id User id
    */
-  async getById(id: number): Promise<User | null> {
+  async getOneById(id: number): Promise<User | null> {
     return (
       (await this.userRepository.findOne(id).catch((err) => {
         throw new BadGatewayException('Something happened', err);
@@ -124,7 +124,7 @@ export class UsersService extends TypeOrmCrudService<User> {
       throw new BadRequestException('You need to provide a valid id');
     }
 
-    const user = await this.getById(dto.id);
+    const user = await this.userRepository.findOne(dto.id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -143,7 +143,7 @@ export class UsersService extends TypeOrmCrudService<User> {
     const updatedUsers = [];
     for (const dto of dtos) {
       if (dto.id) {
-        const user = await await this.getById(dto.id);
+        const user = await this.userRepository.findOne(dto.id);
         if (!!user) {
           delete dto.id; // Deleting this input to avoid issues with entity
           const editedUser = Object.assign(user, dto);

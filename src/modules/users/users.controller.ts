@@ -18,7 +18,6 @@ import { CreateUserDto, UpdateUserDto } from './dto';
 import { DataOutput, IUser } from 'src/common/interfaces';
 import { User } from './entities';
 
-@ApiTags('Users')
 @Crud({
   model: {
     type: User,
@@ -33,6 +32,27 @@ import { User } from './entities';
     maxLimit: 100,
     cache: 1000,
     alwaysPaginate: true,
+    join: {
+      users: {
+        eager: false,
+        required: false,
+      },
+      contactInfo: {
+        eager: false,
+        required: false,
+      },
+      'contactInfo.addresses': {
+        eager: false,
+        required: false,
+      },
+      'contactInfo.phones': {
+        eager: false,
+        required: false,
+      },
+      metadata: {
+        required: false,
+      },
+    },
   },
 })
 @Controller('users')
@@ -48,6 +68,7 @@ export class UsersController implements CrudController<User> {
    * @param dto User Form but in Array format
    * @example POST /users/bulk
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({ summary: 'Create Users - Batch', description: 'Register users in batch.' })
   @ApiCreatedResponse({ status: 201, description: 'Users created successfully', type: User })
   @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
@@ -64,6 +85,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integer Array
    * @example GET /users/bulk?ids=1,2,3
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({
     summary: 'Get Users by ids- Batch',
     description: 'Get users by Ids. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -82,6 +104,7 @@ export class UsersController implements CrudController<User> {
    * @param dtos Update User Form including the ID insude
    * @example PUT /users/bulk
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({ summary: 'Update users - Batch', description: 'Update users. You have to provide an id each object inside an updateUserDTO' })
   @ApiOkResponse({ status: 200, description: 'Success response' })
   @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
@@ -98,6 +121,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integers ?ids=1,2,3
    * @example DELETE /users/bulk
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({
     summary: 'Softdelete users - Batch',
     description: '(SOFT DELETION) Delete users. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -117,6 +141,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integers ?ids=1,2,3
    * @example DELETE /users?ids=1,2,3
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({
     summary: 'Hard delete users - Batch',
     description: '(HARD DELETION) Delete users. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -135,6 +160,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integers ?ids=1,2,3
    * @example DELETE /users/bulk/restore?ids=1,2,3
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({
     summary: 'Restore users - Batch',
     description: 'Restore users. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -153,6 +179,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integers ?ids=1,2,3
    * @example DELETE /users/bulk/disable?ids=1,2,3
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({
     summary: 'Disable users - Batch',
     description: 'Disable users. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -171,6 +198,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integers ?ids=1,2,3
    * @example DELETE /users/bulk/enable?ids=1,2,3
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({
     summary: 'Enable users - Batch',
     description: 'Enable users. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -189,6 +217,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integer Array
    * @example GET /users/bulk?ids=1,2,3
    */
+  @ApiTags('Users batch operations')
   @ApiOperation({
     summary: 'Get Users by ids- Batch',
     description: 'Get Deleted users by Ids. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -207,6 +236,7 @@ export class UsersController implements CrudController<User> {
    * @param dto User Form
    * @example POST /users
    */
+  @ApiTags('Users single operation')
   @ApiOperation({ summary: 'Create User  - Single', description: 'Register an user, this can be public or privated.' })
   @ApiCreatedResponse({ status: 201, description: 'User created successfully', type: User })
   @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
@@ -222,6 +252,7 @@ export class UsersController implements CrudController<User> {
    * Get deleted users - Batch
    * @example GET /users/bulk?ids=1,2,3
    */
+  @ApiTags('Users single operation')
   @ApiOperation({
     summary: 'Get Deleted Users by ids- Batch',
     description: 'Get users by Ids. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -236,25 +267,11 @@ export class UsersController implements CrudController<User> {
   }
 
   /**
-   * Get user by id - Single
-   * @param id User ID integer
-   * @example GET /users/1 where 1 is User ID integer
-   */
-  @ApiOperation({ summary: 'Get user by id - Single', description: 'Get user by Id. You have to provide an id in a url param' })
-  @ApiOkResponse({ status: 200, description: 'Success response', type: User })
-  @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBadGatewayResponse({ status: 502, description: 'Something happened' })
-  @ApiParam({ name: 'id', required: true, type: 'number', example: '1' })
-  @Get(':id')
-  async getById(@Param('id') id: number) {
-    return await this.service.getById(id);
-  }
-
-  /**
    * Update one - Single
    * @param dto Update User Form
    * @example PUT /users
    */
+  @ApiTags('Users single operation')
   @ApiOperation({ summary: 'Update user - Single', description: 'Update user by Id. You have to provide an id in the body' })
   @ApiOkResponse({ status: 200, description: 'Success response' })
   @ApiUnauthorizedResponse({ status: 401, description: 'Unauthorized' })
@@ -271,6 +288,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integer
    * @example DELETE /users
    */
+  @ApiTags('Users single operation')
   @ApiOperation({
     summary: 'Softdelete user - Batch',
     description: '(SOFT DELETION) Delete user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -288,6 +306,7 @@ export class UsersController implements CrudController<User> {
    * Delete one (ATENTTION: PERMANENT DELETION)
    * @param id User ID integer
    */
+  @ApiTags('Users single operation')
   @ApiOperation({
     summary: 'Hard delete  user - Batch',
     description: '(HARD DELETION) Delete user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -306,6 +325,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integer
    * @example DELETE /users/1/restore
    */
+  @ApiTags('Users single operation')
   @ApiOperation({
     summary: 'Restore user - Batch',
     description: 'Restore user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -324,6 +344,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integer
    * @example DELETE /users/1/disable
    */
+  @ApiTags('Users single operation')
   @ApiOperation({
     summary: 'Disable user - single',
     description: 'Disable user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',
@@ -342,6 +363,7 @@ export class UsersController implements CrudController<User> {
    * @param ids User ID integer
    * @example DELETE /users/1/enable
    */
+  @ApiTags('Users single operation')
   @ApiOperation({
     summary: 'Enable user - Batch',
     description: 'Enable user. You will have to provide a query param of ids separated by comas example: ?ids=1,2,3',

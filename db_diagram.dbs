@@ -66,6 +66,13 @@ OneToOne Relation from contact_info_id]]></comment>
 			<column name="sms" type="bool" jt="-7" >
 				<defo>false</defo>
 			</column>
+			<column name="created_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
+			<column name="updated_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
+			<column name="deleted_at" type="date" jt="91" />
 			<index name="pk_tbl_id" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
@@ -78,6 +85,12 @@ OneToOne Relation from contact_info_id]]></comment>
 			<column name="user_id" type="integer" jt="4" mandatory="y" />
 			<column name="key" type="varchar" length="255" jt="12" mandatory="y" />
 			<column name="value" type="text" jt="12" />
+			<column name="created_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
+			<column name="updated_at" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
 			<column name="deleted_at" type="date" jt="91" >
 				<defo>null</defo>
 			</column>
@@ -110,7 +123,7 @@ OneToOne Relation from contact_info_id]]></comment>
 			</index>
 		</table>
 	</schema>
-	<layout name="Default Layout" id="Layout_58710df" joined_routing="y" show_relation="columns" >
+	<layout name="Default Layout" id="Layout_58710df" show_relation="columns" >
 		<entity schema="nestjs starter" name="contact_address" color="C1D8EE" x="544" y="80" />
 		<entity schema="nestjs starter" name="contact_info" color="C1D8EE" x="304" y="192" />
 		<entity schema="nestjs starter" name="contact_phone" color="C1D8EE" x="544" y="368" />

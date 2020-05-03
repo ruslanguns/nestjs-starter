@@ -1,18 +1,4 @@
-import {
-  Column,
-  Entity,
-  DeleteDateColumn,
-  Index,
-  BeforeInsert,
-  BeforeUpdate,
-  ManyToMany,
-  JoinTable,
-  JoinColumn,
-  OneToMany,
-  IsNull,
-  Not,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, DeleteDateColumn, Index, BeforeInsert, BeforeUpdate, JoinTable, OneToMany, OneToOne } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { hash } from 'bcryptjs';
 import { ApiProperty } from '@nestjs/swagger';
@@ -23,15 +9,6 @@ import { ContactInfo } from './contact-info.entity';
 
 @Entity('user')
 export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
-  static scope = {
-    default: {
-      deletedAt: IsNull(),
-    },
-    myScope: {
-      deletedAt: Not(IsNull()),
-    },
-  };
-
   @ApiProperty()
   @Index({ unique: true })
   @Column({ type: 'varchar', length: 255, nullable: false })
@@ -60,7 +37,8 @@ export class User extends EntityBaseWithDate(EntityBase(EmptyEntity)) {
   @JoinTable()
   metadata: UserMetadata[];
 
-  @OneToOne((type) => ContactInfo, (info) => info.userId, { cascade: true, eager: true })
+  @OneToOne((type) => ContactInfo, (info) => info.user, { cascade: true, eager: true })
+  @JoinTable()
   contactInfo: ContactInfo;
 
   @ApiProperty()

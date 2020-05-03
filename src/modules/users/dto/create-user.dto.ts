@@ -1,58 +1,11 @@
-import { IsString, IsEmail, IsNotEmpty, Matches, MinLength, MaxLength, IsOptional, ValidateNested, IsArray, IsDate, IsEnum } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, Matches, MinLength, MaxLength, IsOptional, ValidateNested, IsArray } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+
 import { IsUsernameAlreadyExist, IsEmailAlreadyExist } from '../../../common/validators';
 import { PATTERN_VALID_USERNAME } from '../../../config/config.constants';
-import { Type } from 'class-transformer';
-import { GenderEnum } from 'src/common/enums';
-
-export class ContactInfoDto {
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  name?: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  middleName?: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  lastName?: string;
-
-  @ApiProperty()
-  @IsDate()
-  @Type(() => Date)
-  @IsOptional()
-  birthday?: Date;
-
-  @ApiProperty()
-  @IsEnum(GenderEnum)
-  @IsOptional()
-  gender?: GenderEnum;
-}
-
-export class UserMetadataDto {
-  @ApiProperty({ description: 'Not necessary on create but mandatory in update metadata.' })
-  @IsOptional()
-  id?: number;
-
-  @ApiProperty({ description: 'En este campo administraremos el nombre del campo personalizado.' })
-  @IsString()
-  @IsOptional()
-  key?: string;
-
-  @ApiProperty({ description: 'En este campo administraremos el valor del campo personalizado.' })
-  @IsString()
-  @IsOptional()
-  value?: string;
-
-  constructor(key: string, value: string) {
-    this.key = key;
-    this.value = value;
-  }
-}
+import { ContactInfoDto } from './contact-info.dto';
+import { CreateUserMetadataDto } from './create-user-metadata.dto';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -86,12 +39,12 @@ export class CreateUserDto {
   @IsNotEmpty()
   password!: string;
 
-  @ApiProperty({ description: 'Additional user metadata or custom fields', type: UserMetadataDto, isArray: true })
+  @ApiProperty({ description: 'Additional user metadata or custom fields', type: CreateUserMetadataDto, isArray: true })
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => UserMetadataDto)
+  @Type(() => CreateUserMetadataDto)
   @IsOptional()
-  metadata: UserMetadataDto[];
+  metadata: CreateUserMetadataDto[];
 
   @ApiProperty({ description: 'Additional user information', type: ContactInfoDto })
   @ValidateNested({ each: true })

@@ -5,6 +5,7 @@ import { IsEmailAlreadyExist, IsUsernameAlreadyExist } from '../../../common/val
 import { CreateUserDto } from './create-user.dto';
 import { PATTERN_VALID_USERNAME } from '../../../config/config.constants';
 
+// TODO: sintetizar esto porque a lo mejor los tipados estan demas
 export class UpdateUserDto extends PartialType(OmitType(CreateUserDto, ['email', 'username', 'metadata'])) {
   @ApiProperty()
   @IsOptional()

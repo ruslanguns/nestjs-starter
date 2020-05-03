@@ -10,6 +10,7 @@ function typeormModuleOptions(): TypeOrmModuleOptions {
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB,
     entities: [__dirname + '../../**/**/*entity{.ts,.js}'],
+    autoLoadEntities: true,
     // We are using migrations, synchronize should be set to false.
     synchronize: Boolean(process.env.DATABASE_SYNC) || false,
 
