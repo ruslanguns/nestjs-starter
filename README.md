@@ -33,7 +33,9 @@ This aplication server is made with [NestJS](https://nestjs.com) and provides a 
 - [ ] Files feature API Enpoint
 - [ ] Files metadata API Enpoint Plus
 - [x] User feature API Enpoint
-- [ ] User metadata API Enpoint Plus - In progress
+- [x] Docs User feature API Enpoint
+- [x] User information/metadata/addresses/phones API Enpoint
+- [ ] Docs User information/metadata/addresses/phones API Enpoint
 - [ ] Unit / Integration Testings - In progress
 - [ ] E2E Testings
 - [ ] Cypress Integration for e2e testings
@@ -112,7 +114,7 @@ To start container:
 docker-compose -f database.yml stop
 ```
 
-To remove and prune:
+To remove and prune/clean:
 
 ```bash
 docker-compose -f database.yml stop
@@ -160,6 +162,15 @@ yarn deploy:docker:recreate
 ```
 
 And that's it!
+
+To remove and prune/clean:
+
+```bash
+docker-compose -f deploy.yml stop
+docker-compose -f deploy.yml rm # followed by "y"
+docker-compose -f deploy.yml down
+docker-compose -f deploy.yml down --volumes
+```
 
 ## Contact information
 
