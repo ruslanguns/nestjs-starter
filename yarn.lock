@@ -834,12 +834,12 @@
     "@nestjsx/util" "^4.4.5"
     qs "^6.8.0"
 
-"@nestjsx/crud-request@^4.5.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@nestjsx/crud-request/-/crud-request-4.5.0.tgz#fbc10705c7dae33262b4d2dcf5fd57045402d4d3"
-  integrity sha512-5YVL35geSVKaeyh0TfiQNsJ95oFv5iwb8s4wC0Tb9MZItEvos+DyVM9sCvl374Mzk3rt8DK60x2jnYeF7TtdHQ==
+"@nestjsx/crud-request@^4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/crud-request/-/crud-request-4.6.2.tgz#c0d29df354b3de648a44dc0973f80131c953af86"
+  integrity sha512-EqveTzR5JLMRBnxqJzo0mm7Ff05IzQ6dvfg1gj46q6nOwZ0hfXr0FBTChtciKtkZB/QOlWQ5B1scCap/QuNJWQ==
   dependencies:
-    "@nestjsx/util" "^4.5.0"
+    "@nestjsx/util" "^4.6.2"
     qs "^6.8.0"
 
 "@nestjsx/crud-typeorm@4.4.2":
@@ -849,13 +849,13 @@
   dependencies:
     "@zmotivat0r/o0" "^1.0.2"
 
-"@nestjsx/crud@4.5.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@nestjsx/crud/-/crud-4.5.0.tgz#3f6e1d964a80f6f13aded5504068c727f573148f"
-  integrity sha512-uhHceUwLDvoD3FDYhxfjzioDMBkCxAAzJJQHZBFiwmlw9FCEHkograFWwZ8uv6SXBTRyMOveuPpRwaPXkwNYZw==
+"@nestjsx/crud@4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/crud/-/crud-4.6.2.tgz#7b6c3e8642f44f6113e7d9945aa397bbda334b26"
+  integrity sha512-WWzPI7X2saxJ2No5vO4+zaSRP4CABqSM4NGVAE1VjGQ1ApdjDxj3dFu08Y7YSa5kz+vmrVRwh++Vh+xd9MixUQ==
   dependencies:
-    "@nestjsx/crud-request" "^4.5.0"
-    "@nestjsx/util" "^4.5.0"
+    "@nestjsx/crud-request" "^4.6.2"
+    "@nestjsx/util" "^4.6.2"
     deepmerge "^3.2.0"
 
 "@nestjsx/util@^4.4.5":
@@ -863,10 +863,10 @@
   resolved "https://registry.yarnpkg.com/@nestjsx/util/-/util-4.4.5.tgz#99d8a535aaf1079fdbb2e69fa292a6550f6f3c90"
   integrity sha512-4cT+KqUthHrq3XUwF4Ub68A+eJVSCJgmoOo9ntCLkAJEn+Ozkr5liUSvFEOOQb5uYvIaETRmEq3Rq0nvRWM32g==
 
-"@nestjsx/util@^4.5.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@nestjsx/util/-/util-4.5.0.tgz#1ea7755ccc4ab4372a0bf6463e7816ca61eb5987"
-  integrity sha512-Ci7ElrlUT2Uft+3olnA6EKKjTqzL7i6yA5nefk2D7FiEBho4ieHRI8HHKhM/0nK1CWkfXhPpEDB+CRb2Xwulqg==
+"@nestjsx/util@^4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@nestjsx/util/-/util-4.6.2.tgz#89bd31447a30f9666d7ad1616111c78b2d61dd56"
+  integrity sha512-YG2gQvSm7p8zBFaW6MFM5r1Ihk4Vr189SB2OTr7fV7qcjPS+02v7xILw2dTz2emdmu0t0AgCL2RU1V0lY8Aa9w==
 
 "@nuxtjs/opencollective@0.2.2":
   version "0.2.2"
