@@ -55,7 +55,7 @@
     "@nestjs/schedule": "0.3.1",
     "@nestjs/swagger": "4.5.3",
     "@nestjs/typeorm": "7.0.0",
-    "@nestjsx/crud": "4.5.0",
+    "@nestjsx/crud": "4.6.2",
     "@nestjsx/crud-request": "4.4.5",
     "@nestjsx/crud-typeorm": "4.4.2",
     "@ruso/common": "0.0.1",
