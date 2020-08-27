@@ -60,7 +60,7 @@
     "@nestjsx/crud-typeorm": "4.4.2",
     "@ruso/common": "0.0.1",
     "@ruso/nestjs": "0.0.1",
-    "bcrypt": "4.0.1",
+    "bcrypt": "5.0.0",
     "bcryptjs": "2.4.3",
     "class-transformer": "0.2.3",
     "class-validator": "0.12.2",
