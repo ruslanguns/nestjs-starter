@@ -764,10 +764,10 @@
     "@types/jsonwebtoken" "8.3.8"
     jsonwebtoken "8.5.1"
 
-"@nestjs/mapped-types@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.0.3.tgz#7b50206935452e74a270ed9a07ad05a6305b0b42"
-  integrity sha512-PKxWOVaMyvj9/82afLpMZ/+Pb5JacCURRP/FY/tCDtsoS+MABeQGj2oqbtH4uQUiL4n+H0IigvQGHWQ1zPPknA==
+"@nestjs/mapped-types@0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.4.1.tgz#e7fe038f0bdda7b8f858fa79ca8516b8f9069b1a"
+  integrity sha512-JXrw2LMangSU3vnaXWXVX47GRG1FbbNh4aVBbidDjxT3zlghsoNQY6qyWtT001MCl8lJGo8I6i6+DurBRRxl/Q==
 
 "@nestjs/passport@7.0.0":
   version "7.0.0"
@@ -802,13 +802,13 @@
     "@angular-devkit/schematics" "9.0.6"
     fs-extra "8.1.0"
 
-"@nestjs/swagger@4.5.3":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-4.5.3.tgz#efa489724b42e09aa3022abfd9b0660ecb91e721"
-  integrity sha512-qYMuL+HwtAUkAtS2ylFOlFCir3OSsgtB5pgTHvpbCqmo6LzqW3mjr4s5BxBBvg6DKQyQ0uYY4uhSIuFlqf7UMQ==
+"@nestjs/swagger@4.8.2":
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-4.8.2.tgz#0a0b3ca1b25146e797ca77addd9fa97f82406c1c"
+  integrity sha512-RSUwcVxrzXF7/b/IZ5lXnYHJ6jIGS9wWRTJKIt1kIaCNWT+0wRfTlAyhQkzs2g35/PTXJEcdIwwY7mBO/bwHzw==
   dependencies:
-    "@nestjs/mapped-types" "0.0.3"
-    lodash "4.17.15"
+    "@nestjs/mapped-types" "0.4.1"
+    lodash "4.17.21"
     path-to-regexp "3.2.0"
 
 "@nestjs/testing@7.0.9":
@@ -6523,6 +6523,11 @@ lodash@4.17.15, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
+lodash@4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log-symbols@^3.0.0:
   version "3.0.0"
