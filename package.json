@@ -107,7 +107,7 @@
     "ts-loader": "6.2.2",
     "ts-node": "8.10.1",
     "tsconfig-paths": "3.9.0",
-    "typescript": "3.8.3"
+    "typescript": "3.9.10"
   },
   "resolutions": {
     "minimist": "^1.2.2",
