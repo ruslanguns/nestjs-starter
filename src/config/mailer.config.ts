@@ -1,5 +1,6 @@
 import { registerAs } from '@nestjs/config';
-import { HandlebarsAdapter, MailerOptions } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { MailerOptions } from '@nestjs-modules/mailer';
 
 function mailerModuleOptions(): MailerOptions {
   return {
