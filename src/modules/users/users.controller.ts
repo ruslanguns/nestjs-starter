@@ -11,7 +11,7 @@ import {
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
-import { Crud, CrudController } from '@nestjsx/crud';
+import { Crud, CrudController } from '@rewiko/crud';
 
 import { UsersService } from './services';
 import { CreateUserDto, UpdateUserDto } from './dto';

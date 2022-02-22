@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadGatewayException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CrudRequest, GetManyDefaultResponse } from '@nestjsx/crud';
-import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
+import { CrudRequest, GetManyDefaultResponse } from '@rewiko/crud';
+import { TypeOrmCrudService } from '@rewiko/crud-typeorm';
 import { Repository } from 'typeorm';
 
 import { User, UserMetadata } from '../entities';
