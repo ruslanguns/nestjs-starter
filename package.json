@@ -84,7 +84,7 @@
     "@types/bcrypt": "3.0.0",
     "@types/bcryptjs": "2.4.2",
     "@types/express": "4.17.6",
-    "@types/hapi__joi": "16.0.12",
+    "@types/hapi__joi": "17.1.15",
     "@types/jest": "25.2.1",
     "@types/node": "13.13.4",
     "@types/passport-jwt": "3.0.3",
